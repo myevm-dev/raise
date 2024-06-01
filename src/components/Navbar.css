@@ -1,0 +1,70 @@
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 5px 0;
+  background-color: #111827;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 80px;
+  z-index: 1000;
+  border-right: 2px solid var(--backup-border);
+}
+
+.water-tank {
+  width: 100%;
+  height: 100%;
+  position: absolute; /* Absolute positioning */
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure it is behind the nav items */
+}
+
+.liquid {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  z-index: 1; /* Ensure it is behind the nav items */
+}
+
+.water {
+  height: 100%; /* Adjust to fill the container height */
+  top: calc(100% - 7%); /* Fill 87% from the bottom */
+  position: absolute;
+  animation: waves 5s infinite linear;
+}
+
+@keyframes waves {
+  0% { transform: translateX(-15em); }
+  100% { transform: translateX(0); }
+}
+
+.nav-items {
+  position: relative;
+  z-index: 2; /* Ensure it is above the water tank */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.nav-item {
+  height: 80px;
+  width: 30px;
+  padding: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+  border-radius: 10px;
+  background-color: #111827;
+  margin-bottom: 20px;
+}
+
+.nav-item:hover {
+  border-color: #6600CC;
+  background-color: hsl(0 0% 20%);
+}

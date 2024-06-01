@@ -1,0 +1,27 @@
+
+/* Round card styles */
+.round-card {
+  --radius: 50%; /* Make the card round */
+  --border: 5;
+  --size: 800;
+  border-radius: 50%; /* Make the card round */
+  border: var(--border-size) solid #6600CC; /* Glow color */
+  background-color: #000000;
+  height: 45px; /* Adjust the height as needed */
+  width: 45px; /* Adjust the width as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border 0.3s;
+  margin: 10px; /* Add margin for spacing */
+  margin-top: -10px;
+  margin-left: 10px;
+  padding: 1px;
+  box-shadow: 0 0 10px #6600CC, 0 0 20px #6600CC, 0 0 30px #6600CC, 0 0 40px #6600CC; /* Glow effect */
+
+}
+
+.round-card:hover {
+  border-color: #6600CC;
+  background-color: #6600CC;
+}

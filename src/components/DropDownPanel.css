@@ -1,0 +1,68 @@
+
+@font-face {
+  font-family: 'Shanti';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Shanti'), url(http://themes.googleusercontent.com/static/fonts/shanti/v4/YXI2DWvNHH4E3kHi_10pZw.woff) format('woff');
+}
+
+.panel {
+  background: #111827;
+  background-size: 90% 90%;
+  height: 540px;
+  width: 100%;
+  position: fixed; /* Fix position to top of viewport */
+  top: -500px; /* Hide panel above the viewport */
+  left: 0;
+  transition: top 0.3s ease-in-out; /* Smooth transition */
+  z-index: 1000; /* Ensure panel is above other content */
+}
+
+.panel.open {
+  top: 0; /* Slide down into view */
+}
+
+.panel p {
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Shanti';
+  font-size: 30px;
+  -webkit-text-shadow: 1px 2px 0px #003d33;
+  -moz-text-shadow: 1px 2px 0px #003d33;
+  text-shadow: 1px 2px 0px #003d33;
+}
+
+.slide {
+  margin: -40;
+  padding: 0;
+  position: relative;
+  z-index: 1001; /* Ensure slide is in front of panel */
+}
+
+.pull-me {
+  display: block;
+  position: absolute; /* Position relative to .slide */
+  top: -15px; /* Position at the top of the .slide */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 25px;
+  padding-top: 5px;
+  font-family: 'Shanti';
+  font-size: 20px;
+  color: #fff;
+  background: #000;
+  text-decoration: none;
+  -moz-border-bottom-left-radius: 5px;
+  -moz-border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 105px;
+  border-bottom-right-radius: 105px;
+  text-align: center; /* Center text */
+  cursor: pointer; /* Make cursor pointer to indicate clickable */
+  z-index: 1002; /* Ensure pull-me is in front of everything else */
+}
+
+.pull-me p {
+  margin: 0; /* Reset margin */
+  padding: 0; /* Reset padding */
+}

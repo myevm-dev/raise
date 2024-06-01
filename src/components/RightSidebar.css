@@ -1,0 +1,79 @@
+.right-side-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 0;
+  background-color: #111827;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 80px;
+  z-index: 1000;
+  border-left: 2px solid var(--backup-border);
+  overflow-y: auto;
+}
+
+.water-tank {
+  width: 100%;
+  height: 100%;
+  position: absolute; /* Absolute positioning */
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure it is behind the unipool items */
+}
+
+.unipools-container {
+  position: relative;
+  z-index: 2; /* Ensure it is above the water tank */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.unipool-item {
+  height: 80px; /* Adjusted to match nav-item */
+  width: 30px; /* Adjusted to match nav-item */
+  padding: 8px; /* Adjusted to match nav-item */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+  border-radius: 10px;
+  background-color: #111827;
+  margin-bottom: 20px;
+}
+
+.unipool-item:hover {
+  border-color: #6600CC;
+  background-color: hsl(0 0% 20%);
+}
+
+.unipool-item:hover {
+  border-color: #6600CC;
+  background-color: hsl(0 0% 20%);
+}
+
+.water-tank .liquid {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.water-tank .liquid svg {
+  height: 30em;
+  top: calc(97.5% - 57%);
+  position: absolute;
+  animation: waves 5s infinite linear;
+}
+
+@keyframes waves {
+  0% { transform: translateX(-15em); }
+  100% { transform: translateX(0); }
+}
