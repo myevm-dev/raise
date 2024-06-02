@@ -1,6 +1,11 @@
 import React from 'react';
 
-const WindowCard = ({ title, src }) => {
+interface WindowCardProps {
+  title: string;
+  src: string;
+}
+
+const WindowCard: React.FC<WindowCardProps> = ({ title, src }) => {
   return (
     <article className="window-card" data-glow>
       <span data-glow />

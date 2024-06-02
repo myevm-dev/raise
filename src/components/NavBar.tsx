@@ -1,8 +1,8 @@
 import React from 'react';
-import RoundCard from './RoundCard.jsx';
+import RoundCard from './RoundCard';
 import './Navbar.css';
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
   return (
     <nav className="side-bar">
       <div className="water-tank">
@@ -24,11 +24,12 @@ const NavBar = () => {
         <div className="nav-item" data-glow></div>
         <div className="nav-item" data-glow></div>
         <div className="nav-item" data-glow></div>
-        <RoundCard />
+        <RoundCard>
+          <div>Your content here</div> {/* Add actual content as needed */}
+        </RoundCard>
       </div>
     </nav>
   );
 };
 
 export default NavBar;
-

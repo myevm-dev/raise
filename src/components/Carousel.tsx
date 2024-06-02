@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 
-const Carousel = ({ children }) => {
+interface CarouselProps {
+  children: ReactNode;
+}
+
+const Carousel: React.FC<CarouselProps> = ({ children }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % children.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % React.Children.count(children));
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + children.length) % children.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + React.Children.count(children)) % React.Children.count(children));
   };
 
   return (
