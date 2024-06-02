@@ -10,4 +10,3 @@ const ArticleCard = ({ imgSrc, altText }) => {
 };
 
 export default ArticleCard;
-
