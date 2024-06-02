@@ -1,5 +1,6 @@
 import React from 'react';
-import './RightSidebar.css'; // Import the combined CSS file
+import RoundCard from './RoundCard';
+import './RightSidebar.css';
 
 const RightSidebar = () => {
   const unipools = new Array(4).fill(null);
@@ -36,6 +37,7 @@ const RightSidebar = () => {
             {index + 1}
           </div>
         ))}
+        <RoundCard /> {/* Place RoundCard at the bottom */}
       </div>
     </div>
   );

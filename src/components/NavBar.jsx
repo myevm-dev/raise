@@ -24,9 +24,11 @@ const NavBar = () => {
         <div className="nav-item" data-glow></div>
         <div className="nav-item" data-glow></div>
         <div className="nav-item" data-glow></div>
+        <RoundCard />
       </div>
     </nav>
   );
 };
 
 export default NavBar;
+
