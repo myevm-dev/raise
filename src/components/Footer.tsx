@@ -1,7 +1,8 @@
 import React from 'react';
 import './Footer.css';
+import TicksComponent from './TicksComponent';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="center-button">
@@ -19,6 +20,7 @@ const Footer = () => {
           <span className="plate"><i>BASE</i></span>
         </div>
       </div>
+      <TicksComponent className="ticks" />
     </footer>
   );
 };
