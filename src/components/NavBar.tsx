@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
         <div className="nav-item" data-glow></div>
         <div className="nav-item" data-glow></div>
         <RoundCard>
-          <div>Your content here</div> {/* Add actual content as needed */}
+          <img src="/ethlogo40px.png" alt="pepelogo" className="roundcard-image" />
         </RoundCard>
       </div>
     </nav>

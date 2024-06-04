@@ -11,13 +11,13 @@ const RightSidebar = () => {
           <svg className="water" viewBox="0 0 200 100">
             <defs>
               <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0" style={{ stopColor: '#29ABE2' }} />
-                <stop offset="0.1643" style={{ stopColor: '#28A6E3' }} />
-                <stop offset="0.3574" style={{ stopColor: '#2496E6' }} />
-                <stop offset="0.5431" style={{ stopColor: '#1E7DEA' }} />
-                <stop offset="0.7168" style={{ stopColor: '#1559F0' }} />
-                <stop offset="0.874" style={{ stopColor: '#0B2CF7' }} />
-                <stop offset="1" style={{ stopColor: '#0000FF' }} />
+                <stop offset="0" style={{ stopColor: '#C4FFBA' }} />
+                <stop offset="0.1643" style={{ stopColor: '#9FE194' }} />
+                <stop offset="0.3574" style={{ stopColor: '#A2E897' }} />
+                <stop offset="0.5431" style={{ stopColor: '#4D9441' }} />
+                <stop offset="0.7168" style={{ stopColor: '#53864B' }} />
+                <stop offset="0.874" style={{ stopColor: '#4D9441' }} />
+                <stop offset="1" style={{ stopColor: '#4D9441' }} />
               </linearGradient>
             </defs>
             <path fill="url(#waterGradient)" d="
@@ -37,7 +37,9 @@ const RightSidebar = () => {
             {index + 1}
           </div>
         ))}
-        <RoundCard /> {/* Place RoundCard at the bottom */}
+        <RoundCard>
+          <img src="/pepelogo40px.png" alt="pepelogo" className="roundcard-image" />
+        </RoundCard>
       </div>
     </div>
   );
