@@ -4,7 +4,7 @@ import './WalletComponent.css';
 const WalletComponent: React.FC = () => {
   return (
     <div className="wallet-component">
-      <p>Wallet: Connected</p>
+      <p>Wallet: Connected Mainnet</p>
     </div>
   );
 };
