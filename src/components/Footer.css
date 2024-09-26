@@ -1,221 +1,53 @@
+/* Footer.css */
+
 .footer {
   position: fixed;
   bottom: 0;
-  height: 35px;
-  width: 100%;
+  height: 120px;
+  width: 100%; /* Ensure it takes the full width of the viewport */
   background-color: #111827;
   color: #fff;
   text-align: center;
-  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; /* Center everything horizontally */
+  box-sizing: border-box;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1; /* Ensure it's below the sidebars */
+  z-index: 1;
+  overflow: hidden;
 }
 
-.center-button {
-  position: relative;
+.ticks-container {
+  width: 100%; /* Ensure full width */
+  height: 40px; /* Fixed height for ticks */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+}
+
+
+.wallet-component {
+  width: 100%; /* Full width of the footer */
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  position: relative;
 }
 
-#check-for-clicking { 
-  display: none; 
-}
-
-.main-add-button-plus, .menu-add-items, .main-add-button-minus {
-  margin: auto;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: -160px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
-}
-
-.main-add-button-plus, .main-add-button-minus {
-  background: #030415;
-  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.35);
-  cursor: pointer;
-  z-index: 50;
-}
-
-.main-add-button-plus:hover { 
-  background: #064260;
-}
-
-.main-add-button-minus:hover {
-  background: #1e328b;
-}
-
-.main-add-button-plus:active {
-  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.35), inset 1px 2px 2px rgba(0, 0, 0, 0.35);
-  background-color: #c99c20;
-}
-
-.main-add-button-minus:active {
-  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.35), inset 1px 2px 2px rgba(0, 0, 0, 0.35);
-  background-color: #d79d3f;
-}
-
-.main-add-button-plus .menu-add-button-title {
-  padding: 14px 10px 10px 1px;
-  width: 100%;
-  margin-left: -10px;
-  height: 30px;
-  font-size: 3em;
-  line-height: 50px;
-  text-align: center;
-  color: #600660;
-}
-
-.main-add-button-minus .menu-add-button-title {
-  padding: 14px 10px 10px 1px;
-  width: 100%;
-  height: 20px;
-  margin-left: -10px;
-  font-size: 3em;
-  line-height: 30px;
-  text-align: center;
-  color: #fafafa;
-}
-
-.menu-add-items { 
-  z-index: 10; 
-}
-
-.plate {
-  margin: auto;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  opacity: 0;
-  border-radius: 50%;
-  -webkit-transition: all 0.4s ease-in;
-  -moz-transition: all 0.4s ease-in;
-  transition: all 0.4s ease-in;
-  cursor: pointer;
-  background: #1f3779;
-  -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
-}
-
-.plate i {
-  width: 100%;
-  font-size: 10px;
-  line-height: 30px;
-  text-align: center;
+.account-component {
+  height: 60px;
+  background-color: #333;
   color: white;
-  font-family: Helvetica;
-  font-style: normal;
-  font-weight: bold;
+  border-top: 1px solid #444;
+  left: -5%; 
 }
 
-.plate:hover i { 
-  color: #111;
-}
-
-.plate:nth-of-type(1) {
-  background: #5F7BF2;
-  -webkit-transition-delay: 0s;
-  -moz-transition-delay: 0s;
-  transition-delay: 0s;
-}
-
-.plate:nth-of-type(2) {
-  background: #2C374B;
-  -webkit-transition-delay: 0.1s;
-  -moz-transition-delay: 0.1s;
-  transition-delay: 0.1s;
-}
-
-.plate:nth-of-type(3) {
-  background: #FF041F;
-  -webkit-transition-delay: 0.2s;
-  -moz-transition-delay: 0.2s;
-  transition-delay: 0.2s;
-}
-
-.plate:nth-of-type(4) {
-  background: #0050FD;
-  -webkit-transition-delay: 0.3s;
-  -moz-transition-delay: 0.3s;
-  transition-delay: 0.3s;
-}
-
-.plate:nth-of-type(1):hover {
-  background: #1e328b;
-}
-
-.plate:nth-of-type(2):hover {
-  background: #1e328b;
-}
-
-.plate:nth-of-type(3):hover {
-  background: #1e328b;
-}
-
-.plate:nth-of-type(4):hover {
-  background: #1e328b;
-}
-
-#check-for-clicking:checked ~ .main-add-button-minus + .menu-add-items .plate { 
-  opacity: 1; 
-}
-
-#check-for-clicking:checked ~ .main-add-button-minus + .menu-add-items .plate:nth-of-type(1) {
-  left: -180%; 
-}
-
-#check-for-clicking:checked ~ .main-add-button-minus + .menu-add-items .plate:nth-of-type(2) {
-  left: -103%;
-  top: -152%;
-}
-
-#check-for-clicking:checked ~ .main-add-button-minus + .menu-add-items .plate:nth-of-type(3) { 
-  left: 70%;
-  top: -150%;
-}
-
-#check-for-clicking:checked ~ .main-add-button-minus + .menu-add-items .plate:nth-of-type(4) {
-  right: -180%;
-}
-
-#check-for-clicking:checked ~ .main-add-button-plus {
-  display: none;
-  -webkit-transition-delay: 0.1s;
-  -moz-transition-delay: 0.1s;
-  transition-delay: 0.1s;
-}
-
-#check-for-clicking:checked ~ .main-add-button-minus {
-  display: inline;
-  -webkit-transition-delay: 0.1s;
-  -moz-transition-delay: 0.1s;
-  transition-delay: 0.1s;
-}
-
-#check-for-clicking:not(:checked) ~ .main-add-button-minus {
-  display: none;
-  -webkit-transition-delay: 0.1s;
-  -moz-transition-delay: 0.1s;
-  transition-delay: 0.1s;
-}
-
-#check-for-clicking:not(:checked) ~ .main-add-button-plus {
-  display: inline;
-  -webkit-transition-delay: 0.1s;
-  -moz-transition-delay: 0.1s;
-  transition-delay: 0.1s;
+.wallet-component {
+  height: 30px;
+  background-color: #222;
+  color: white;
+  border-top: 1px solid #333;
+  left: -5%; 
 }

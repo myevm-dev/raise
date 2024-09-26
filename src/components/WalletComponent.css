@@ -1,0 +1,16 @@
+/* WalletComponent.css */
+
+.wallet-component {
+    position: absolute;
+    bottom: 0; /* Lock it to the bottom of the footer */
+    width: 100%;
+    height: 30px; /* Fixed height */
+    background-color: #222;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px; /* Adjust font size as needed */
+    border-top: 1px solid #333;
+  }
+  

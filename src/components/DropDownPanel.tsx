@@ -13,7 +13,7 @@ const DropDownPanel = () => {
       <div className={`panel ${isOpen ? 'open' : ''}`}>
         <br />
         <br />
-        <p>Open Positions</p>
+
       </div>
       <div className="slide">
         <a href="#" className="pull-me" onClick={togglePanel}>POSITIONS</a>

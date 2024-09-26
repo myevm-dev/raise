@@ -1,10 +1,9 @@
 import React from 'react';
-import RoundCard from './RoundCard';
-import './RightSidebar.css';
+import './LeftSidebar.css';
 
-const RightSidebar = () => {
+const LeftSidebar = () => {
   return (
-    <div className="right-side-bar">
+    <div className="left-side-bar">
       <div className="water-tank">
         <div className="liquid">
           <svg className="water" viewBox="0 0 200 100">
@@ -29,9 +28,8 @@ const RightSidebar = () => {
           </svg>
         </div>
       </div>
-
     </div>
   );
 };
 
-export default RightSidebar;
+export default LeftSidebar;

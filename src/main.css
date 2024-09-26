@@ -64,8 +64,8 @@
 
 .window-card {
   width: 100%; /* Ensure the window card fits within the content area */
-  max-width: 850px; 
-  height: 350px; /* Set height to match the carousel */
+  max-width: 900px; 
+  height: 400px; /* Set height to match the carousel */
   background-color: transparent;
 }
 
