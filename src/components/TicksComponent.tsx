@@ -6,7 +6,7 @@ interface TicksComponentProps {
 }
 
 const TicksComponent: React.FC<TicksComponentProps> = ({ className }) => {
-  const totalDivs = 100; // 50 for token0 and 50 for token1
+  const totalDivs = 101; // 50 for token0 and 50 for token1
 
   return (
     <div className={`${styles.wrap} ${className}`}>

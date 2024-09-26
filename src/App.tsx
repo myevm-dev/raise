@@ -24,11 +24,15 @@ function App() {
         <LeftSidebar />
         <RightSidebar />
         <div className="content">
-          <button onClick={toggleCharts} style={{ marginBottom: '20px' }}>
-            {showCharts ? 'Hide Charts' : 'Show Charts'}
-          </button>
-          {showCharts && (
-            <div className="window-row">
+        <button 
+          onClick={toggleCharts} 
+          style={{ marginBottom: '20px', marginTop: '20px' }} // Adjust marginTop to move it down
+        >
+         {showCharts ? 'Hide Chart' : 'Show Chart'}
+        </button>
+          {/* Add a fixed height to the container, regardless of chart visibility */}
+          <div className="window-row" style={{ height: '400px', overflow: 'hidden' }}>
+            {showCharts && (
               <Carousel>
                 <WindowCard
                   title="weth/usdc chart"
@@ -51,8 +55,8 @@ function App() {
                   src="https://www.dextools.io/widget-chart/en/ether/pe-light/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f?theme=dark&chartType=1&chartResolution=1d&drawingToolbars=true"
                 />
               </Carousel>
-            </div>
-          )}
+            )}
+          </div>
           <div className="cards-row">
             <ArticleCard imgSrc="https://i.imgur.com/5uJQeo6.png" altText="Example Image 1" />
             <ArticleCard imgSrc="https://i.imgur.com/m9MDGBK.png" altText="Example Image 2" />

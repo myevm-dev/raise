@@ -41,7 +41,7 @@
 .pull-me {
   display: block;
   position: absolute; /* Positioned relative to .slide */
-  top: -7vh; /* Adjusted value to place tab closer to top */
+  top: -5vh; /* Adjusted value to place tab closer to top */
   left: 50%;
   transform: translateX(-50%); /* Center horizontally */
   width: 20vw; /* Use viewport width for responsive sizing */

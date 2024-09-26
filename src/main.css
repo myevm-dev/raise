@@ -13,7 +13,7 @@
 .window-row {
   display: flex;
   justify-content: center;
-  margin-bottom: 175px;
+  margin-bottom: 150px;
   width: 100%;
 }
 
@@ -65,7 +65,7 @@
 .window-card {
   width: 100%; /* Ensure the window card fits within the content area */
   max-width: 900px; 
-  height: 400px; /* Set height to match the carousel */
+  height: 350px; /* Set height to match the carousel */
   background-color: transparent;
 }
 
@@ -103,7 +103,7 @@
   justify-content: center;
   width: 920px;
   height:50px;
-  margin-top: -5px; 
+  margin-top: -2px; 
   margin-bottom: 6px;
 }
 
@@ -123,7 +123,7 @@
   margin: 1px; /* Add margin to space out the cards */
   padding: 10px;
   margin-top: -30px;
-  margin-bottom: 200px;
+  margin-bottom: 255px;
 }
 
 .article-card:hover {
@@ -248,13 +248,12 @@ main {
 .window-card {
   width: 880px; /* Ensure the window card fits within the content area */
   height: 340px; /* Set height to match the carousel */
-  margin-top: -15px;
+  margin-top: -2;
   background-color: transparent;
   border-color: #6600CC; /* Always highlighted in pink */
 }
 
 /* Additional hover effects for cards */
-.window-card:hover,
 .article-card:hover {
   border-color: #6600CC;
   background-color: hsl(0 0% 20%);
