@@ -1,0 +1,31 @@
+/* TickerComponent.css */
+
+/* Container for the TradingView widget */
+.tradingview-widget-container {
+    width: 100%; /* Adjust to fit your layout */
+    margin: 0 auto; /* Center the widget horizontally */
+    padding: 10px;
+    background-color: #1e1e1e; /* Dark background to match the dark theme */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Adjusts the widget's size */
+  .tradingview-widget-container__widget {
+    height: 40px; /* Adjust height if needed */
+    width: 100%; /* Make it responsive to parent container */
+  }
+  
+  /* Customize the copyright styling */
+  .tradingview-widget-copyright {
+    font-size: 12px;
+    text-align: center;
+    color: #888;
+    margin-top: 5px;
+  }
+  
+  .tradingview-widget-copyright a {
+    color: #1e90ff; /* Color for the link */
+    text-decoration: none;
+  }
+  

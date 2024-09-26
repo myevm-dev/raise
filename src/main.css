@@ -13,7 +13,7 @@
 .window-row {
   display: flex;
   justify-content: center;
-  margin-bottom: 140px;
+  margin-bottom: 175px;
   width: 100%;
 }
 
@@ -114,7 +114,7 @@
   border-radius: calc(var(--radius) * 1px);
   border: var(--border-size) solid var(--backup-border);
   background-color: #111827;
-  height: 90px; /* Increase height */
+  height: 100px; /* Increase height */
   max-width: 200px;
   width: 200px; /* Ensure the card width is consistent */
   display: flex;
@@ -122,8 +122,8 @@
   justify-content: center;
   margin: 1px; /* Add margin to space out the cards */
   padding: 10px;
-  margin-top: -70px;
-  margin-bottom: 75px;
+  margin-top: -30px;
+  margin-bottom: 200px;
 }
 
 .article-card:hover {
@@ -248,8 +248,7 @@ main {
 .window-card {
   width: 880px; /* Ensure the window card fits within the content area */
   height: 340px; /* Set height to match the carousel */
-  margin-top: 10px;
-  margin-bottom: 800px;
+  margin-top: -15px;
   background-color: transparent;
   border-color: #6600CC; /* Always highlighted in pink */
 }
