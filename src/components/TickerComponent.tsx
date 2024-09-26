@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import AccountComponent from 'TickerComponent.css'
+import './TickerComponent.css';
 
 const TickerComponent: React.FC = () => {
   useEffect(() => {
