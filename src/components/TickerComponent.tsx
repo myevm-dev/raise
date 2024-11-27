@@ -12,15 +12,13 @@ const TickerComponent: React.FC = () => {
       script.async = true;
       script.innerHTML = JSON.stringify({
         symbols: [
-          { description: 'WBTCUSD', proName: 'COINBASE:BTCUSD' },
           { description: 'ETHUSD', proName: 'COINBASE:ETHUSD' },
-          { description: 'OPUSD', proName: 'COINBASE:OPUSD' },
+          { description: 'APEUSD', proName: 'COINBASE:APEUSD' },
           { description: 'ARBUSD', proName: 'COINBASE:ARBUSD' },
-          { description: 'SNXUSD', proName: 'COINBASE:SNXUSD' },
-          { description: 'POLUSD', proName: 'COINBASE:POLUSD' },
           { description: 'PEPEUSD', proName: 'PYTH:PEPEUSD' },
           { description: 'LINKUSD', proName: 'COINBASE:LINKUSD' },
           { description: 'UNIUSD', proName: 'COINBASE:UNIUSD' },
+          { description: 'BTCUSD', proName: 'COINBASE:BTCUSD' },
           { description: 'USDTUSDC', proName: 'COINBASE:USDTUSDC' }
         ],
         showSymbolLogo: true,
