@@ -1,53 +1,38 @@
-/* Footer.css */
+.footer {
+  position: relative; /* Allow the footer to sit in its natural flow */
+  display: flex; /* Flexbox for horizontal alignment */
+  justify-content: space-between; /* Align items to the left and right */
+  align-items: center; /* Center items vertically */
+  width: 100%; /* Full width of the viewport */
+  height: 60px; /* Set a consistent height */
+  background-color: #111827; /* Background color matching design */
+  padding: 0 20px; /* Horizontal padding for spacing */
+  z-index: 1; /* Ensure it stays below sidebars */
+  border-top: 2px solid #6600CC; /* Optional top border for separation */
+}
 
 .footer {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  height: 120px;
-  width: 100%; /* Ensure it takes the full width of the viewport */
-  background-color: #111827;
-  color: #fff;
-  text-align: center;
+  width: 100%; /* Span the full width */
+  height: 100px; /* Adjust height as needed */
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center; /* Center everything horizontally */
-  box-sizing: border-box;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  overflow: hidden;
-}
-
-.ticks-container {
-  width: 100%; /* Ensure full width */
-  height: 40px; /* Fixed height for ticks */
-  display: flex;
-  justify-content: center; /* Center horizontally */
+  justify-content: space-between;
   align-items: center;
+  background-color: #000; /* Match the layout background */
 }
 
-
-.wallet-component {
-  width: 100%; /* Full width of the footer */
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+.footer-left img,
+.footer-right img {
+  height: 30%; /* Use percentage for the height relative to the container */
+  width: auto; /* Keep the aspect ratio intact */
+  margin: 0; /* Remove any extra margin */
 }
 
-.account-component {
-  height: 60px;
-  background-color: #333;
-  color: white;
-  border-top: 1px solid #444;
-  left: -5%; 
+.footer-left {
+  margin-left: 5%; /* Position it 20% from the left edge */
 }
 
-.wallet-component {
-  height: 30px;
-  background-color: #222;
-  color: white;
-  border-top: 1px solid #333;
-  left: -5%; 
+.footer-right {
+  margin-right: 7%; /* Position it 20% from the right edge */
 }

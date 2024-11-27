@@ -1,67 +1,58 @@
-/* DropDownPanel.css */
-
-@font-face {
-  font-family: 'Shanti';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Shanti'), url(http://themes.googleusercontent.com/static/fonts/shanti/v4/YXI2DWvNHH4E3kHi_10pZw.woff) format('woff');
-}
-
 .panel {
   background: #111827;
-  background-size: 90% 90%;
+  background-size: cover;
   height: 100vh; /* Full height of the viewport */
-  width: 100vw; /* Full width of the viewport */
+  width: 100%; /* Full width of the viewport */
   position: fixed; /* Fixed at the top of the viewport */
-  top: -100vh; /* Start hidden above the viewport */
+  top: -100vh; /* Hidden by default above the viewport */
   left: 0;
-  transition: top 0.3s ease-in-out; /* Smooth transition */
-  z-index: 1000; /* Ensure panel is above other content */
+  transition: top 0.3s ease-in-out; /* Smooth transition for sliding */
+  z-index: 1000; /* Ensure it's above other elements */
 }
 
 .panel.open {
-  top: 0; /* Slide down into view when open */
+  top: 0; /* Slides down into view when open */
 }
 
 .panel p {
   text-align: center;
   color: #ffffff;
   font-family: 'Shanti';
-  font-size: 2vw; /* Use viewport units for responsive font scaling */
-  text-shadow: 1px 2px 0px #003d33; /* Simplified shadow */
+  font-size: 2vw; /* Responsive font scaling */
+  text-shadow: 1px 2px 0px #003d33;
 }
 
 .slide {
-  margin: 0;
-  padding: 0;
-  position: relative;
-  z-index: 1001; /* Ensure slide is in front of the panel */
+  position: fixed; /* Fix position at the top */
+  top: 0; /* Stick to the top of the page */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001; /* Ensure it's above other elements */
 }
 
 .pull-me {
   display: block;
-  position: absolute; /* Positioned relative to .slide */
-  top: -5vh; /* Adjusted value to place tab closer to top */
-  left: 50%;
-  transform: translateX(-50%); /* Center horizontally */
-  width: 20vw; /* Use viewport width for responsive sizing */
-  height: 6vh; /* Use viewport height for responsive sizing */
-  padding-top: 0; /* Remove negative padding */
+  width: 20vw;
+  height: 6vh;
+  padding: 0.5rem; /* Add padding for better clickability */
   font-family: 'Shanti';
   font-size: 2.4vw;
   color: #fff;
-  border: 2px solid #6600CC; /* Add border to improve visibility */
+  border: 2px solid #6600CC;
   background: #000;
   text-decoration: none;
   border-bottom-left-radius: 105px;
   border-bottom-right-radius: 105px;
   text-align: center;
-  cursor: pointer; /* Indicate clickable element */
-  z-index: 1002; /* Ensure pull-me is in front of other elements */
+  cursor: pointer;
+  z-index: 1002;
+}
+
+.pull-me:hover {
+  background: #6600CC; /* Add hover effect for better UX */
 }
 
 .pull-me p {
-  margin: 0; /* Remove unnecessary margin */
-  padding: 0; /* Reset padding */
-  border-color: #6600CC;
+  margin: 0;
+  padding: 0;
 }

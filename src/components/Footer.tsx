@@ -1,19 +1,15 @@
 import React from 'react';
 import './Footer.css';
-import TicksComponent from './TicksComponent';
-import WhiteTickComponent from './WhiteTickComponent';
-import WalletComponent from './WalletComponent';
-import AccountComponent from './AccountComponent';
 
 const Footer: React.FC = () => {
   return (
     <footer className="footer">
-      <div className="ticks-container">
-        <TicksComponent />
-        <WhiteTickComponent />
+      <div className="footer-left">
+        <img src="/degenlogo.png" alt="Left Icon" />
       </div>
-      <AccountComponent />
-      <WalletComponent />
+      <div className="footer-right">
+        <img src="/degenlogo.png" alt="Right Icon" />
+      </div>
     </footer>
   );
 };

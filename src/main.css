@@ -1,4 +1,10 @@
 
+html, body {
+  height: 100%; /* Ensure the body and html take up the full viewport height */
+  margin: 0; /* Remove default margins */
+  overflow: hidden; /* Prevent scrolling */
+}
+
 .content {
   margin-left: 80px; /* Adjust margin to account for left sidebar width */
   margin-right: 80px; /* Adjust margin to account for right sidebar width */
@@ -16,6 +22,14 @@
   margin-bottom: 150px;
   width: 100%;
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensure footer stays at the bottom */
+  min-height: 100vh; /* Full viewport height */
+}
+
 
 /* Carousel specific styles */
 .carousel {
@@ -231,17 +245,15 @@
   position: relative;
 }
 
-
-/* Replace the existing main section */
 main {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: space-between; /* Adjust layout to fit content properly */
   align-items: center;
-  justify-content: flex-start;
-  width: calc(100vw - 160px); /* Adjust to fit the window card width */
-  max-width: calc(420px * 4 + 30px); 
-  position: relative;
+  height: 100vh; /* Force it to take up the full viewport height */
+  width: 100vw; /* Ensure it spans the full width */
+  overflow: hidden; /* Prevent scrolling inside main */
+  position: relative; /* Ensure child elements position relative to this container */
 }
 
 
