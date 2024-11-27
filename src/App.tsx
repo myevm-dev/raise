@@ -7,11 +7,6 @@ import DropDownPanel from './components/DropDownPanel';
 import './main.css';
 
 function App() {
-  const [showCharts, setShowCharts] = useState(true); // State to toggle chart visibility
-
-  const toggleCharts = () => {
-    setShowCharts(!showCharts); // Toggle between true and false
-  };
 
   return (
     <div className="app-container">
