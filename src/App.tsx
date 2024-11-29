@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { ethers } from "ethers";
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
 import Background from "./components/Background";
@@ -6,7 +7,6 @@ import Footer from "./components/Footer";
 import DropDownPanel from "./components/DropDownPanel";
 import NFTCarousel from "./components/NFTCarousel";
 import OwnedNFTCarousel from "./components/OwnedNFTCarousel";
-import { ethers } from "ethers";
 import "./main.css";
 
 type NFT = {
@@ -16,9 +16,8 @@ type NFT = {
 
 function App() {
   const [selectedNFT, setSelectedNFT] = useState<NFT | null>(null);
-  const [showOwnedNFTs, setShowOwnedNFTs] = useState(false);
   const [account, setAccount] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isPooledView, setIsPooledView] = useState(true);
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -34,18 +33,8 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    connectWallet();
-  }, []);
-
   const handleNFTSelect = (nft: NFT) => {
     setSelectedNFT(nft);
-  };
-
-  const handleToggle = (owned: boolean) => {
-    setShowOwnedNFTs(owned);
-    setIsLoading(true); // Reset loading state
-    setTimeout(() => setIsLoading(false), 500); // Simulate loading delay
   };
 
   return (
@@ -56,46 +45,35 @@ function App() {
         <LeftSidebar />
 
         <div className="main-content">
-          {/* Render appropriate carousel */}
-          <div className="carousel-container">
-            {isLoading ? (
-              <div className="carousel-placeholder">Loading...</div>
-            ) : account ? (
-              showOwnedNFTs ? (
-                <OwnedNFTCarousel
-                  onNFTSelect={handleNFTSelect}
-                  account={account}
-                />
-              ) : (
-                <NFTCarousel onNFTSelect={handleNFTSelect} />
-              )
-            ) : (
-              <div className="carousel-placeholder">
-                Connect your wallet to view NFTs.
-              </div>
-            )}
-          </div>
-
-          {/* Toggle Buttons */}
           <div className="toggle-buttons">
             <button
-              className={!showOwnedNFTs ? "active" : ""}
-              onClick={() => handleToggle(false)}
+              className={isPooledView ? "active" : ""}
+              onClick={() => setIsPooledView(true)}
             >
               Pool NFTs
             </button>
             <button
-              className={showOwnedNFTs ? "active" : ""}
-              onClick={() => handleToggle(true)}
+              className={!isPooledView ? "active" : ""}
+              onClick={() => setIsPooledView(false)}
             >
               My NFTs
             </button>
           </div>
+          {isPooledView ? (
+            <NFTCarousel onNFTSelect={handleNFTSelect} />
+          ) : (
+            <OwnedNFTCarousel onNFTSelect={handleNFTSelect} account={account} />
+          )}
         </div>
 
         <RightSidebar />
       </main>
-      <Footer onSwapToSelect={handleNFTSelect} selectedNFT={selectedNFT} />
+      <Footer
+        onSwapToSelect={handleNFTSelect}
+        selectedNFT={selectedNFT}
+        connectWallet={connectWallet}
+        account={account}
+      />
     </div>
   );
 }
