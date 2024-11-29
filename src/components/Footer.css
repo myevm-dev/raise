@@ -34,10 +34,7 @@
   box-sizing: border-box; /* Ensures padding does not increase dimensions */
 }
 
-.swap-card h3 {
-  font-size: 1rem;
-  margin-left: 10px;
-}
+
 
 .nft-preview {
   display: flex;
@@ -46,20 +43,11 @@
   gap: 10px; /* Space between image and text */
 }
 
-.nft-preview img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 4px;
-}
 
-.nft-preview p {
-  font-size: 0.9rem;
-  margin: 0;
-}
 
 .swap-arrow-container {
   display: flex;
+  flex-direction: column; /* Stack the arrow and wallet button vertically */
   justify-content: center;
   align-items: center;
   margin: 0 20px;
@@ -69,9 +57,8 @@
   font-size: 2rem;
   color: #f3f4f6;
   text-align: center;
+  margin-bottom: 10px; /* Space between the arrow and wallet button */
 }
-
-
 
 .wallet-button {
   margin-top: 10px;
@@ -87,10 +74,59 @@
 }
 
 .wallet-button:hover {
-  background-color: #5200a3;
+  background-color: #5200A3;
 }
 
 .wallet-button:disabled {
   background-color: #333;
   cursor: not-allowed;
 }
+
+
+
+
+.swap-card {
+  display: flex;
+  flex-direction: row; /* Horizontal layout for the card */
+  align-items: center; /* Align items vertically */
+  justify-content: flex-start; /* Align content to the left */
+  width: 280px; /* Keep rectangular shape */
+  height: 120px;
+  border: 2px solid #6600CC;
+  border-radius: 8px;
+  background-color: #111827;
+  color: #fff;
+  padding: 10px;
+  box-sizing: border-box; /* Ensures padding does not increase dimensions */
+}
+
+.nft-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between image and text */
+}
+
+.nft-preview img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column; /* Stack the text vertically */
+  justify-content: center; /* Center text vertically relative to the image */
+  gap: 4px; /* Space between lines of text */
+}
+
+.card-text h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.card-text p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+

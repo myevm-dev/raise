@@ -33,12 +33,16 @@ const Footer: React.FC<FooterProps> = ({ onSwapToSelect, selectedNFT }) => {
     <footer className="footer">
       {/* Swap From Card */}
       <div className="swap-card-container">
-        <div className="swap-card">
-          <h3>Swap From</h3>
-          <div className="nft-preview">
-            <p>No NFT Selected</p>
-          </div>
-        </div>
+      <div className="swap-card">
+  <div className="nft-preview">
+    <img src={selectedNFT?.image || '/default-image.png'} alt={`NFT ${selectedNFT?.id || 'No NFT'}`} />
+    <div className="card-text">
+      <h3>Swap To</h3> {/* or "Swap From" for the other card */}
+      <p>ID: {selectedNFT?.id || 'No NFT Selected'}</p>
+    </div>
+  </div>
+</div>
+
       </div>
 
       {/* Swap Arrow */}
@@ -51,17 +55,16 @@ const Footer: React.FC<FooterProps> = ({ onSwapToSelect, selectedNFT }) => {
 
       {/* Swap To Card */}
       <div className="swap-card-container">
-        <div className="swap-card">
-          <h3>Swap To</h3>
-          {selectedNFT ? (
-            <div className="nft-preview">
-              <img src={selectedNFT.image} alt={`NFT ${selectedNFT.id}`} />
-              <p>ID: {selectedNFT.id}</p>
-            </div>
-          ) : (
-            <p>No NFT Selected</p>
-          )}
-        </div>
+      <div className="swap-card">
+  <div className="nft-preview">
+    <img src={selectedNFT?.image || '/default-image.png'} alt={`NFT ${selectedNFT?.id || 'No NFT'}`} />
+    <div className="card-text">
+      <h3>Swap To</h3> {/* or "Swap From" for the other card */}
+      <p>ID: {selectedNFT?.id || 'No NFT Selected'}</p>
+    </div>
+  </div>
+</div>
+
       </div>
     </footer>
   );
