@@ -134,7 +134,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #fff;
-  background-color: #00bcd4;
+  background-color: #a45fea;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -142,7 +142,7 @@
 }
 
 .swap-button:hover {
-  background-color: #0097a7;
+  background-color: #21ff08ee;
 }
 
 
