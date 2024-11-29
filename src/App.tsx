@@ -1,24 +1,29 @@
+// App.tsx
 import React from 'react';
 import LeftSidebar from './components/LeftSidebar';
 import RightSidebar from './components/RightSidebar';
 import Background from './components/Background';
 import Footer from './components/Footer';
 import DropDownPanel from './components/DropDownPanel';
-import NFTCarousel from './components/NFTCarousel'; // Import your carousel
+import NFTCarousel from './components/NFTCarousel';
 import './main.css';
 
 function App() {
   return (
     <div className="app-container">
       <DropDownPanel />
+      <Background />
       <main>
-        <Background />
         <LeftSidebar />
-        
+
         <div className="main-content">
-          <NFTCarousel /> 
-        </div>
         
+            <div className="nft-carousel-wrapper">
+              <NFTCarousel />
+            </div>
+
+        </div>
+
         <RightSidebar />
       </main>
       <Footer />
