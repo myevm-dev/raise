@@ -1,15 +1,15 @@
 
-
 /* Carousel.css */
 
 .carousel-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 80vw; /* 80% of viewport width */
-  height: 66vh; /* 2/3rds of viewport height */
+  height: 66vh; /* 2/3 of viewport height */
   margin: 0 auto;
+  margin-top: 6%;
+  position: relative;
   overflow: hidden;
 }
 
@@ -34,10 +34,10 @@
 }
 
 .nft-image {
-  width: 100%;
+  width: 90%;
   height: auto;
-  max-height: 100%;
-  object-fit: cover;
+  max-height: 90%;
+  object-fit: contain;
   border-radius: 4px;
 }
 
@@ -47,21 +47,30 @@
   color: #333;
 }
 
-.carousel-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
 .carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
   cursor: pointer;
-  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.carousel-button.left {
+  left: -20px; /* Adjust to your liking */
+}
+
+.carousel-button.right {
+  right: -20px; /* Adjust to your liking */
 }
 
 .carousel-button:disabled {

@@ -52,15 +52,23 @@ const NFTCarousel: React.FC = () => {
 
   return (
     <div className="carousel-container">
+      <button
+        className="carousel-button left"
+        onClick={handlePrevious}
+        disabled={currentIndex === 0}
+      >
+        {"<"}
+      </button>
+
       <div className="carousel-grid">
-        {nfts.slice(currentIndex, currentIndex + ITEMS_PER_PAGE).map((nft, idx) => (
+        {nfts.slice(currentIndex, currentIndex + ITEMS_PER_PAGE).map((nft) => (
           <div key={nft.id} className="carousel-item">
             <img
               src={nft.image}
               alt={`NFT ${nft.id}`}
               className="nft-image"
               onError={(e) => {
-                e.currentTarget.src = "/placeholder.png"; // Use a placeholder image
+                e.currentTarget.src = "/placeholder.png"; // Placeholder image
               }}
             />
             <p className="nft-id">ID: {nft.id}</p>
@@ -68,26 +76,15 @@ const NFTCarousel: React.FC = () => {
         ))}
       </div>
 
-      <div className="carousel-buttons">
-        <button
-          className="carousel-button"
-          onClick={handlePrevious}
-          disabled={currentIndex === 0}
-        >
-          {"< Previous"}
-        </button>
-
-        <button
-          className="carousel-button"
-          onClick={handleNext}
-          disabled={currentIndex + ITEMS_PER_PAGE >= nfts.length}
-        >
-          {"Next >"}
-        </button>
-      </div>
+      <button
+        className="carousel-button right"
+        onClick={handleNext}
+        disabled={currentIndex + ITEMS_PER_PAGE >= nfts.length}
+      >
+        {">"}
+      </button>
     </div>
   );
 };
 
 export default NFTCarousel;
-
