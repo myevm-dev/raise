@@ -1,33 +1,37 @@
 // NFTCarousel.tsx
 import React, { useEffect, useState } from "react";
-import { fetchPoolNFTs } from "./nftUtils";
 import "./Carousel.css";
+import { fetchPoolNFTs } from "./nftUtils"; // Adjust the path as needed
 
 type NFT = {
   id: string;
   image: string;
 };
 
-const NFTCarousel: React.FC = () => {
+interface NFTCarouselProps {
+  onNFTSelect: (nft: NFT) => void;
+}
+
+const NFTCarousel: React.FC<NFTCarouselProps> = ({ onNFTSelect }) => {
   const [nfts, setNfts] = useState<NFT[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  const ITEMS_PER_PAGE = 24; // 8 columns * 3 rows
+  const ITEMS_PER_PAGE = 24;
+
+  const fetchNFTs = async () => {
+    try {
+      const nftData = await fetchPoolNFTs(); // Ensure fetchPoolNFTs is imported correctly from utils
+      setNfts(nftData);
+    } catch (error) {
+      console.error("Error fetching NFTs:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const loadNFTs = async () => {
-      try {
-        const nftData = await fetchPoolNFTs();
-        setNfts(nftData);
-      } catch (error) {
-        console.error("Error fetching NFTs:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadNFTs();
+    fetchNFTs();
   }, []);
 
   const handleNext = () => {
@@ -42,6 +46,10 @@ const NFTCarousel: React.FC = () => {
     }
   };
 
+  const handleNFTClick = (nft: NFT) => {
+    onNFTSelect(nft); // Pass selected NFT to parent
+  };
+
   if (isLoading) {
     return <div className="loading-message">Loading NFTs...</div>;
   }
@@ -52,35 +60,24 @@ const NFTCarousel: React.FC = () => {
 
   return (
     <div className="carousel-container">
-      <button
-        className="carousel-button left"
-        onClick={handlePrevious}
-        disabled={currentIndex === 0}
-      >
+      <button className="carousel-button left" onClick={handlePrevious}>
         {"<"}
       </button>
 
       <div className="carousel-grid">
         {nfts.slice(currentIndex, currentIndex + ITEMS_PER_PAGE).map((nft) => (
-          <div key={nft.id} className="carousel-item">
-            <img
-              src={nft.image}
-              alt={`NFT ${nft.id}`}
-              className="nft-image"
-              onError={(e) => {
-                e.currentTarget.src = "/placeholder.png"; // Placeholder image
-              }}
-            />
+          <div
+            key={nft.id}
+            className="carousel-item"
+            onClick={() => handleNFTClick(nft)}
+          >
+            <img src={nft.image} alt={`NFT ${nft.id}`} className="nft-image" />
             <p className="nft-id">ID: {nft.id}</p>
           </div>
         ))}
       </div>
 
-      <button
-        className="carousel-button right"
-        onClick={handleNext}
-        disabled={currentIndex + ITEMS_PER_PAGE >= nfts.length}
-      >
+      <button className="carousel-button right" onClick={handleNext}>
         {">"}
       </button>
     </div>
