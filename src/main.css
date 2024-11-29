@@ -1,4 +1,4 @@
-hml, body {
+html, body {
   height: 100%; /* Ensure the body and html take up the full viewport height */
   margin: 0; /* Remove default margins */
   overflow: hidden; /* Prevent scrolling */
@@ -14,8 +14,6 @@ hml, body {
   justify-content: center;
 }
 
-
-
 .app-container {
   display: flex;
   flex-direction: column;
@@ -23,25 +21,27 @@ hml, body {
   min-height: 100vh; /* Full viewport height */
 }
 
-
-/* Additional CSS as needed for other elements */
 :root {
   --backdrop: hsl(0 0% 60% / 0.12);
-  --radius: 15;
-  --border: 5;
+  --radius: 15px;
+  --border: 5px;
   --backup-border: var(--backdrop);
-  --size: 200;
+  --size: 200px;
 }
-
 
 main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Adjust layout to fit content properly */
-  align-items: center;
-  height: 100vh; /* Force it to take up the full viewport height */
-  width: 100vw; /* Ensure it spans the full width */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
   overflow: hidden; /* Prevent scrolling inside main */
-  position: relative; /* Ensure child elements position relative to this container */
+  position: relative; /* For positioning child elements */
 }
 
+.main-content {
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: center;
+}
