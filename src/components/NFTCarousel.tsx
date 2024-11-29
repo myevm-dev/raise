@@ -1,6 +1,7 @@
+// NFTCarousel.tsx
 import React, { useEffect, useState } from "react";
 import { fetchPoolNFTs } from "./nftUtils";
-import "./Carousel.css"; // Add your CSS styles here
+import "./Carousel.css"; // Ensure this path is correct based on your project structure
 
 type NFT = {
   id: string;
@@ -10,6 +11,7 @@ type NFT = {
 const NFTCarousel: React.FC = () => {
   const [nfts, setNfts] = useState<NFT[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const ITEMS_PER_PAGE = 6; // Number of NFTs visible at a time
 
@@ -20,6 +22,8 @@ const NFTCarousel: React.FC = () => {
         setNfts(nftData);
       } catch (error) {
         console.error("Error fetching NFTs:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -37,6 +41,14 @@ const NFTCarousel: React.FC = () => {
       setCurrentIndex(currentIndex - ITEMS_PER_PAGE);
     }
   };
+
+  if (isLoading) {
+    return <div className="loading-message">Loading NFTs...</div>;
+  }
+
+  if (nfts.length === 0) {
+    return <div className="no-nfts-message">No NFTs available at the moment.</div>;
+  }
 
   return (
     <div className="carousel-container">

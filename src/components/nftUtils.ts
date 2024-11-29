@@ -1,3 +1,5 @@
+// nftUtils.ts
+
 import { JsonRpcProvider, Contract, Wallet } from "ethers";
 
 // Contract addresses
@@ -37,6 +39,24 @@ const NFT_ABI = [
 
 const TOKEN_CONTRACT_ABI = [
   {
+    anonymous: false,
+    inputs: [
+      { indexed: false, internalType: "uint256[]", name: "tokenIds", type: "uint256[]" },
+      { indexed: true, internalType: "address", name: "to", type: "address" },
+    ],
+    name: "Deposit",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: false, internalType: "uint256[]", name: "tokenIds", type: "uint256[]" },
+      { indexed: true, internalType: "address", name: "to", type: "address" },
+    ],
+    name: "Redeem",
+    type: "event",
+  },
+  {
     inputs: [{ internalType: "uint256[]", name: "tokenIds", type: "uint256[]" }],
     name: "swap",
     outputs: [],
@@ -48,21 +68,85 @@ const TOKEN_CONTRACT_ABI = [
 // Provider setup
 export const provider = new JsonRpcProvider("https://apechain.calderachain.xyz/http");
 
+// IPFS gateway that supports CORS
+const IPFS_GATEWAY = "https://nftstorage.link/ipfs/";
+
 // Fetch NFTs from the pool contract
 export const fetchPoolNFTs = async (): Promise<{ id: string; image: string }[]> => {
-  const contract = new Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, provider);
-  const tokenIds: number[] = await contract.getNFTs(); // Assume this function exists in the pool contract
+  try {
+    const nftContract = new Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, provider);
+    const tokenContract = new Contract(NFT_BACKED_TOKEN_CONTRACT_ADDRESS, TOKEN_CONTRACT_ABI, provider);
 
-  const nftData = await Promise.all(
-    tokenIds.map(async (tokenId) => {
-      const tokenURI = await contract.tokenURI(tokenId);
-      const response = await fetch(tokenURI);
-      const metadata = await response.json();
-      return { id: tokenId.toString(), image: metadata.image };
-    })
-  );
+    // Fetch Deposit events
+    const depositFilter = tokenContract.filters.Deposit(null, null);
+    const depositEvents = await tokenContract.queryFilter(depositFilter);
 
-  return nftData;
+    // Fetch Redeem events
+    const redeemFilter = tokenContract.filters.Redeem(null, null);
+    const redeemEvents = await tokenContract.queryFilter(redeemFilter);
+
+    // Build a set of token IDs currently in the pool
+    const depositedTokenIds = new Set<string>();
+
+    // Parse Deposit events to get token IDs
+    for (const event of depositEvents) {
+      const parsedEvent = tokenContract.interface.parseLog(event);
+      if (parsedEvent) {
+        const tokenIds = parsedEvent.args.tokenIds as bigint[];
+        tokenIds.forEach((tokenId) => {
+          depositedTokenIds.add(tokenId.toString());
+        });
+      } else {
+        console.warn("Could not parse deposit event:", event);
+      }
+    }
+
+    // Parse Redeem events to remove token IDs
+    for (const event of redeemEvents) {
+      const parsedEvent = tokenContract.interface.parseLog(event);
+      if (parsedEvent) {
+        const tokenIds = parsedEvent.args.tokenIds as bigint[];
+        tokenIds.forEach((tokenId) => {
+          depositedTokenIds.delete(tokenId.toString());
+        });
+      } else {
+        console.warn("Could not parse redeem event:", event);
+      }
+    }
+
+    const tokenIds = Array.from(depositedTokenIds);
+
+    // Now fetch metadata for each token ID
+    const nftData = await Promise.all(
+      tokenIds.map(async (tokenId) => {
+        let tokenURI = await nftContract.tokenURI(tokenId);
+
+        // Replace 'ipfs://' with the CORS-enabled IPFS gateway
+        if (tokenURI.startsWith("ipfs://")) {
+          tokenURI = tokenURI.replace("ipfs://", IPFS_GATEWAY);
+        }
+
+        // Fetch the metadata
+        const response = await fetch(tokenURI);
+        const metadata = await response.json();
+
+        let imageUrl = metadata.image;
+
+        // Replace 'ipfs://' in the image URL as well
+        if (imageUrl.startsWith("ipfs://")) {
+          imageUrl = imageUrl.replace("ipfs://", IPFS_GATEWAY);
+        }
+
+        return { id: tokenId.toString(), image: imageUrl };
+      })
+    );
+
+    console.log("Fetched NFT Data:", nftData);
+    return nftData;
+  } catch (error) {
+    console.error("Error fetching NFTs:", error);
+    return [];
+  }
 };
 
 // Set approval for the NFT-backed token contract

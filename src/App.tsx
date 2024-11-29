@@ -16,7 +16,7 @@ function App() {
         <LeftSidebar />
         
         <div className="main-content">
-          <NFTCarousel /> {/* Add the NFT carousel here */}
+          <NFTCarousel /> 
         </div>
         
         <RightSidebar />
