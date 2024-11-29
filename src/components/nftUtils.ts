@@ -1,13 +1,13 @@
 // nftUtils.ts
 
-import { JsonRpcProvider, Contract, Wallet } from "ethers";
+import { JsonRpcProvider, Contract } from "ethers";
 
 // Contract addresses
 export const NFT_CONTRACT_ADDRESS = "0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1";
 export const NFT_BACKED_TOKEN_CONTRACT_ADDRESS = "0xb736fd496c15c7285a0e61d0ae24b6020d0da387";
 
 // ABIs
-const NFT_ABI = [
+export const NFT_ABI = [
   {
     inputs: [
       { internalType: "address", name: "operator", type: "address" },
@@ -37,7 +37,7 @@ const NFT_ABI = [
   },
 ];
 
-const TOKEN_CONTRACT_ABI = [
+export const TOKEN_CONTRACT_ABI = [
   {
     anonymous: false,
     inputs: [
@@ -70,6 +70,7 @@ export const provider = new JsonRpcProvider("https://apechain.calderachain.xyz/h
 
 // IPFS gateway that supports CORS
 const IPFS_GATEWAY = "https://nftstorage.link/ipfs/";
+
 export const fetchPoolNFTs = async (): Promise<{ id: string; image: string }[]> => {
   try {
     const nftContract = new Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, provider);
