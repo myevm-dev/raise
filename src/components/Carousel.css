@@ -29,7 +29,7 @@
   justify-content: center;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #351036;
   overflow: hidden;
 }
 
@@ -44,7 +44,7 @@
 .nft-id {
   margin-top: 0.25rem;
   font-size: 0.8rem;
-  color: #333;
+  color: #fff;
 }
 
 .carousel-button {
