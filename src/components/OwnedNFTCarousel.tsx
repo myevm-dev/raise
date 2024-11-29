@@ -17,7 +17,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const NFT_CONTRACT_ADDRESS = "0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1"; // Replace with the actual NFT contract address
+  const NFT_CONTRACT_ADDRESS = "0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1"; // Replace with your actual NFT contract address
   const NFT_ABI = [
     {
       inputs: [{ internalType: "address", name: "owner", type: "address" }],
@@ -33,16 +33,6 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
       stateMutability: "view",
       type: "function",
     },
-    {
-      anonymous: false,
-      inputs: [
-        { indexed: true, internalType: "address", name: "from", type: "address" },
-        { indexed: true, internalType: "address", name: "to", type: "address" },
-        { indexed: true, internalType: "uint256", name: "tokenId", type: "uint256" },
-      ],
-      name: "Transfer",
-      type: "event",
-    },
   ];
   const IPFS_GATEWAY = "https://nftstorage.link/ipfs/";
 
@@ -52,42 +42,14 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
       setIsLoading(false);
       return;
     }
-  
+
     try {
       setIsLoading(true);
       const provider = new ethers.BrowserProvider(window.ethereum as ethers.Eip1193Provider);
       const nftContract = new ethers.Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, provider);
-  
-      let tokenIds: string[] = [];
-      try {
-        // Try fetching token IDs using `tokensOfOwner`
-        tokenIds = await nftContract.tokensOfOwner(account);
-      } catch (tokensOfOwnerError) {
-        console.warn("tokensOfOwner failed, falling back to Transfer logs.");
-  
-        // Fallback: Fetch token IDs from Transfer logs
-        const logs = await provider.getLogs({
-          address: NFT_CONTRACT_ADDRESS,
-          topics: [
-            ethers.id("Transfer(address,address,uint256)"), // Event signature hash
-            null,
-            ethers.hexlify(ethers.getAddress(account)), // Format the account address correctly
-          ],
-          fromBlock: 12345678, // Replace with your contract's deployment block
-          toBlock: "latest",
-        });
-  
-        tokenIds = logs
-          .map((log) => {
-            const parsedLog = nftContract.interface.parseLog(log);
-            if (!parsedLog) return null; // Handle null cases
-            return parsedLog.args.tokenId.toString();
-          })
-          .filter((tokenId): tokenId is string => tokenId !== null); // Type guard to remove nulls
-      }
-  
-      console.log("Token IDs:", tokenIds);
-  
+
+      const tokenIds = await nftContract.tokensOfOwner(account);
+
       const nftData = await Promise.all(
         tokenIds.map(async (tokenId: string) => {
           try {
@@ -108,7 +70,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
           }
         })
       );
-  
+
       setOwnedNFTs(nftData.filter((nft) => nft !== null));
     } catch (err) {
       console.error("Error fetching owned NFTs:", err);
@@ -117,9 +79,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
       setIsLoading(false);
     }
   };
-  
 
-  // Use effect to fetch NFTs when `account` changes
   useEffect(() => {
     if (account) {
       fetchOwnedNFTs();
@@ -139,7 +99,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
   }
 
   return (
-    <div className="carousel-container">
+    <div className="carousel-grid">
       {ownedNFTs.map((nft) => (
         <div
           key={nft.id}
