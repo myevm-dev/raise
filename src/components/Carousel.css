@@ -1,10 +1,57 @@
+
+
+/* Carousel.css */
+
 .carousel-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 80vw; /* 80% of viewport width */
+  height: 66vh; /* 2/3rds of viewport height */
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.carousel-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+.nft-image {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.nft-id {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: center;
   gap: 1rem;
-  margin: 2rem auto;
-  max-width: 800px;
+  margin-top: 0.5rem;
 }
 
 .carousel-button {
@@ -14,7 +61,7 @@
   border-radius: 4px;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .carousel-button:disabled {
@@ -22,29 +69,10 @@
   cursor: not-allowed;
 }
 
-.carousel-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  width: 100%;
-}
-
-.carousel-item {
+.loading-message,
+.no-nfts-message {
   text-align: center;
-  border: 1px solid #ccc;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.nft-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-.nft-id {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 2rem;
 }

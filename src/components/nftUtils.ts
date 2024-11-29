@@ -70,8 +70,6 @@ export const provider = new JsonRpcProvider("https://apechain.calderachain.xyz/h
 
 // IPFS gateway that supports CORS
 const IPFS_GATEWAY = "https://nftstorage.link/ipfs/";
-
-// Fetch NFTs from the pool contract
 export const fetchPoolNFTs = async (): Promise<{ id: string; image: string }[]> => {
   try {
     const nftContract = new Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, provider);
@@ -119,66 +117,45 @@ export const fetchPoolNFTs = async (): Promise<{ id: string; image: string }[]> 
     // Now fetch metadata for each token ID
     const nftData = await Promise.all(
       tokenIds.map(async (tokenId) => {
-        let tokenURI = await nftContract.tokenURI(tokenId);
+        try {
+          let tokenURI = await nftContract.tokenURI(tokenId);
 
-        // Replace 'ipfs://' with the CORS-enabled IPFS gateway
-        if (tokenURI.startsWith("ipfs://")) {
-          tokenURI = tokenURI.replace("ipfs://", IPFS_GATEWAY);
+          // Replace 'ipfs://' with the CORS-enabled IPFS gateway
+          if (tokenURI.startsWith("ipfs://")) {
+            tokenURI = tokenURI.replace("ipfs://", IPFS_GATEWAY);
+          }
+
+          // Fetch the metadata
+          const response = await fetch(tokenURI);
+          if (!response.ok) {
+            console.error(`Failed to fetch metadata for token ${tokenId}`);
+            return null;
+          }
+
+          const metadata = await response.json();
+
+          let imageUrl = metadata.image;
+
+          // Replace 'ipfs://' in the image URL as well
+          if (imageUrl.startsWith("ipfs://")) {
+            imageUrl = imageUrl.replace("ipfs://", IPFS_GATEWAY);
+          }
+
+          return { id: tokenId.toString(), image: imageUrl };
+        } catch (error) {
+          console.error(`Error fetching metadata for token ${tokenId}`, error);
+          return null;
         }
-
-        // Fetch the metadata
-        const response = await fetch(tokenURI);
-        const metadata = await response.json();
-
-        let imageUrl = metadata.image;
-
-        // Replace 'ipfs://' in the image URL as well
-        if (imageUrl.startsWith("ipfs://")) {
-          imageUrl = imageUrl.replace("ipfs://", IPFS_GATEWAY);
-        }
-
-        return { id: tokenId.toString(), image: imageUrl };
       })
     );
 
-    console.log("Fetched NFT Data:", nftData);
-    return nftData;
+    // Filter out any null entries resulting from errors
+    const nftDataFiltered = nftData.filter((nft) => nft !== null) as { id: string; image: string }[];
+
+    console.log("Fetched NFT Data:", nftDataFiltered);
+    return nftDataFiltered;
   } catch (error) {
     console.error("Error fetching NFTs:", error);
     return [];
-  }
-};
-
-// Set approval for the NFT-backed token contract
-export const setApprovalForAll = async (signer: Wallet) => {
-  try {
-    const nftContract = new Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, signer);
-
-    // Check approval status
-    const ownerAddress = await signer.getAddress();
-    const isApproved = await nftContract.isApprovedForAll(ownerAddress, NFT_BACKED_TOKEN_CONTRACT_ADDRESS);
-
-    if (!isApproved) {
-      const tx = await nftContract.setApprovalForAll(NFT_BACKED_TOKEN_CONTRACT_ADDRESS, true);
-      await tx.wait();
-      console.log("Approval set successfully.");
-    } else {
-      console.log("Approval already set.");
-    }
-  } catch (error) {
-    console.error("Error setting approval:", error);
-  }
-};
-
-// Swap NFTs
-export const swapNFTs = async (signer: Wallet, tokenIds: number[]) => {
-  try {
-    const tokenContract = new Contract(NFT_BACKED_TOKEN_CONTRACT_ADDRESS, TOKEN_CONTRACT_ABI, signer);
-
-    const tx = await tokenContract.swap(tokenIds);
-    await tx.wait();
-    console.log("NFTs swapped successfully.");
-  } catch (error) {
-    console.error("Error swapping NFTs:", error);
   }
 };

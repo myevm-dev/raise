@@ -13,15 +13,16 @@ function App() {
     <div className="app-container">
       <DropDownPanel />
       <Background />
-      <main>
+      <main className="main-container">
         <LeftSidebar />
 
         <div className="main-content">
-        
-            <div className="nft-carousel-wrapper">
-              <NFTCarousel />
-            </div>
+          <NFTCarousel />
 
+          {/* Card Row Beneath the Carousel */}
+          <div className="card-row">
+            {/* Your card components go here */}
+          </div>
         </div>
 
         <RightSidebar />

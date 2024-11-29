@@ -14,13 +14,6 @@ html, body {
   justify-content: center;
 }
 
-.app-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Ensure footer stays at the bottom */
-  min-height: 100vh; /* Full viewport height */
-}
-
 :root {
   --backdrop: hsl(0 0% 60% / 0.12);
   --radius: 15px;
@@ -40,8 +33,35 @@ main {
   position: relative; /* For positioning child elements */
 }
 
+
+
+
 .main-content {
-  margin: 20px auto;
-  max-width: 800px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
 }
+
+
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.card-row {
+  flex: 1;
+  width: 80vw; /* Match the carousel width */
+  margin: 0 auto;
+  /* Add your styles for the card row */
+}
+
+/* Ensure LeftSidebar and RightSidebar have appropriate styles */
