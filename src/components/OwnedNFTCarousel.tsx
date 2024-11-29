@@ -17,68 +17,99 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const NFT_CONTRACT_ADDRESS = "0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1"; // Replace with the actual NFT contract address
+  const NFT_ABI = [
+    {
+      inputs: [{ internalType: "address", name: "owner", type: "address" }],
+      name: "tokensOfOwner",
+      outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "tokenURI",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        { indexed: true, internalType: "address", name: "from", type: "address" },
+        { indexed: true, internalType: "address", name: "to", type: "address" },
+        { indexed: true, internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      name: "Transfer",
+      type: "event",
+    },
+  ];
+  const IPFS_GATEWAY = "https://nftstorage.link/ipfs/";
+
   const fetchOwnedNFTs = async () => {
-    if (!window.ethereum) {
-      setError("No Ethereum wallet detected. Please install MetaMask.");
+    if (!account) {
+      setError("No wallet connected.");
       setIsLoading(false);
       return;
     }
-
+  
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum as ethers.Eip1193Provider); // Ensure proper type assertion
-      const signer = await provider.getSigner();
-
-      if (!account) {
-        setError("No wallet connected.");
-        setIsLoading(false);
-        return;
+      setIsLoading(true);
+      const provider = new ethers.BrowserProvider(window.ethereum as ethers.Eip1193Provider);
+      const nftContract = new ethers.Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, provider);
+  
+      let tokenIds: string[] = [];
+      try {
+        // Try fetching token IDs using `tokensOfOwner`
+        tokenIds = await nftContract.tokensOfOwner(account);
+      } catch (tokensOfOwnerError) {
+        console.warn("tokensOfOwner failed, falling back to Transfer logs.");
+  
+        // Fallback: Fetch token IDs from Transfer logs
+        const logs = await provider.getLogs({
+          address: NFT_CONTRACT_ADDRESS,
+          topics: [
+            ethers.id("Transfer(address,address,uint256)"), // Event signature hash
+            null,
+            ethers.hexlify(ethers.getAddress(account)), // Format the account address correctly
+          ],
+          fromBlock: 12345678, // Replace with your contract's deployment block
+          toBlock: "latest",
+        });
+  
+        tokenIds = logs
+          .map((log) => {
+            const parsedLog = nftContract.interface.parseLog(log);
+            if (!parsedLog) return null; // Handle null cases
+            return parsedLog.args.tokenId.toString();
+          })
+          .filter((tokenId): tokenId is string => tokenId !== null); // Type guard to remove nulls
       }
-
-      // Replace with your NFT contract address and ABI
-      const nftContract = new ethers.Contract(
-        "0xYourNFTContractAddressHere",
-        [
-          {
-            inputs: [{ internalType: "address", name: "owner", type: "address" }],
-            name: "balanceOf",
-            outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-            stateMutability: "view",
-            type: "function",
-          },
-          {
-            inputs: [{ internalType: "address", name: "owner", type: "address" }, { internalType: "uint256", name: "index", type: "uint256" }],
-            name: "tokenOfOwnerByIndex",
-            outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-            stateMutability: "view",
-            type: "function",
-          },
-          {
-            inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-            name: "tokenURI",
-            outputs: [{ internalType: "string", name: "", type: "string" }],
-            stateMutability: "view",
-            type: "function",
-          },
-        ],
-        signer
+  
+      console.log("Token IDs:", tokenIds);
+  
+      const nftData = await Promise.all(
+        tokenIds.map(async (tokenId: string) => {
+          try {
+            let tokenURI = await nftContract.tokenURI(tokenId);
+            if (tokenURI.startsWith("ipfs://")) {
+              tokenURI = tokenURI.replace("ipfs://", IPFS_GATEWAY);
+            }
+            const response = await fetch(tokenURI);
+            if (!response.ok) throw new Error(`Failed to fetch metadata for token ${tokenId}`);
+            const metadata = await response.json();
+            const imageUrl = metadata.image.startsWith("ipfs://")
+              ? metadata.image.replace("ipfs://", IPFS_GATEWAY)
+              : metadata.image;
+            return { id: tokenId.toString(), image: imageUrl };
+          } catch (error) {
+            console.error(`Error fetching metadata for token ${tokenId}:`, error);
+            return null;
+          }
+        })
       );
-
-      const balance = await nftContract.balanceOf(account);
-
-      const nftData: NFT[] = [];
-      for (let i = 0; i < balance; i++) {
-        const tokenId = await nftContract.tokenOfOwnerByIndex(account, i);
-        const tokenURI = await nftContract.tokenURI(tokenId);
-
-        let imageUrl = tokenURI;
-        if (tokenURI.startsWith("ipfs://")) {
-          imageUrl = tokenURI.replace("ipfs://", "https://nftstorage.link/ipfs/");
-        }
-
-        nftData.push({ id: tokenId.toString(), image: imageUrl });
-      }
-
-      setOwnedNFTs(nftData);
+  
+      setOwnedNFTs(nftData.filter((nft) => nft !== null));
     } catch (err) {
       console.error("Error fetching owned NFTs:", err);
       setError("Failed to fetch owned NFTs.");
@@ -86,11 +117,11 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
       setIsLoading(false);
     }
   };
+  
 
+  // Use effect to fetch NFTs when `account` changes
   useEffect(() => {
     if (account) {
-      setIsLoading(true);
-      setError(null);
       fetchOwnedNFTs();
     }
   }, [account]);
@@ -113,7 +144,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
         <div
           key={nft.id}
           className="carousel-item"
-          onClick={() => onNFTSelect(nft)}
+          onClick={() => onNFTSelect(nft)} // Send NFT to parent on select
         >
           <img src={nft.image} alt={`NFT ${nft.id}`} className="nft-image" />
           <p className="nft-id">ID: {nft.id}</p>

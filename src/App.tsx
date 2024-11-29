@@ -15,7 +15,8 @@ type NFT = {
 };
 
 function App() {
-  const [selectedNFT, setSelectedNFT] = useState<NFT | null>(null);
+  const [swapFromNFT, setSwapFromNFT] = useState<NFT | null>(null); // For "Swap From"
+  const [swapToNFT, setSwapToNFT] = useState<NFT | null>(null); // For "Swap To"
   const [account, setAccount] = useState<string | null>(null);
   const [isPooledView, setIsPooledView] = useState(true);
 
@@ -33,8 +34,14 @@ function App() {
     }
   };
 
-  const handleNFTSelect = (nft: NFT) => {
-    setSelectedNFT(nft);
+  // Handle selection from Pool NFTs (for Swap To)
+  const handlePoolNFTSelect = (nft: NFT) => {
+    setSwapToNFT(nft);
+  };
+
+  // Handle selection from User-Owned NFTs (for Swap From)
+  const handleOwnedNFTSelect = (nft: NFT) => {
+    setSwapFromNFT(nft);
   };
 
   return (
@@ -60,17 +67,22 @@ function App() {
             </button>
           </div>
           {isPooledView ? (
-            <NFTCarousel onNFTSelect={handleNFTSelect} />
+            <NFTCarousel onNFTSelect={handlePoolNFTSelect} />
           ) : (
-            <OwnedNFTCarousel onNFTSelect={handleNFTSelect} account={account} />
+            <OwnedNFTCarousel
+              onNFTSelect={handleOwnedNFTSelect}
+              account={account}
+            />
           )}
         </div>
 
         <RightSidebar />
       </main>
       <Footer
-        onSwapToSelect={handleNFTSelect}
-        selectedNFT={selectedNFT}
+        onSwapToSelect={setSwapToNFT} // Swap To handler
+        onSwapFromSelect={setSwapFromNFT} // Swap From handler
+        swapToNFT={swapToNFT} // Selected Swap To NFT
+        swapFromNFT={swapFromNFT} // Selected Swap From NFT
         connectWallet={connectWallet}
         account={account}
       />

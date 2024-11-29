@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Footer.css";
 
 type NFT = {
@@ -7,23 +7,35 @@ type NFT = {
 };
 
 interface FooterProps {
+  onSwapFromSelect: (nft: NFT) => void;
   onSwapToSelect: (nft: NFT) => void;
-  selectedNFT: NFT | null;
+  swapFromNFT: NFT | null;
+  swapToNFT: NFT | null;
   connectWallet: () => Promise<void>;
   account: string | null;
 }
 
-const Footer: React.FC<FooterProps> = ({ onSwapToSelect, selectedNFT, connectWallet, account }) => {
+const Footer: React.FC<FooterProps> = ({
+  onSwapFromSelect,
+  onSwapToSelect,
+  swapFromNFT,
+  swapToNFT,
+  connectWallet,
+  account,
+}) => {
   return (
     <footer className="footer">
       {/* Swap From Card */}
       <div className="swap-card-container">
         <div className="swap-card">
           <div className="nft-preview">
-            <img src={selectedNFT?.image || "/default-image.png"} alt={`NFT ${selectedNFT?.id || "No NFT"}`} />
+            <img
+              src={swapFromNFT?.image || "/default-image.png"}
+              alt={`NFT ${swapFromNFT?.id || "No NFT"}`}
+            />
             <div className="card-text">
               <h3>Swap From</h3>
-              <p>ID: {selectedNFT?.id || "No NFT Selected"}</p>
+              <p>ID: {swapFromNFT?.id || "No NFT Selected"}</p>
             </div>
           </div>
         </div>
@@ -33,7 +45,9 @@ const Footer: React.FC<FooterProps> = ({ onSwapToSelect, selectedNFT, connectWal
       <div className="swap-arrow-container">
         <p className="swap-arrow">⇄</p>
         <button className="wallet-button" onClick={connectWallet}>
-          {account ? `Connected: ${account.slice(0, 6)}...${account.slice(-4)}` : "Connect Wallet"}
+          {account
+            ? `Connected: ${account.slice(0, 6)}...${account.slice(-4)}`
+            : "Connect Wallet"}
         </button>
       </div>
 
@@ -41,10 +55,13 @@ const Footer: React.FC<FooterProps> = ({ onSwapToSelect, selectedNFT, connectWal
       <div className="swap-card-container">
         <div className="swap-card">
           <div className="nft-preview">
-            <img src={selectedNFT?.image || "/default-image.png"} alt={`NFT ${selectedNFT?.id || "No NFT"}`} />
+            <img
+              src={swapToNFT?.image || "/default-image.png"}
+              alt={`NFT ${swapToNFT?.id || "No NFT"}`}
+            />
             <div className="card-text">
               <h3>Swap To</h3>
-              <p>ID: {selectedNFT?.id || "No NFT Selected"}</p>
+              <p>ID: {swapToNFT?.id || "No NFT Selected"}</p>
             </div>
           </div>
         </div>
