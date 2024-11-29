@@ -19,7 +19,7 @@ const DropDownPanel = () => {
 
       {/* Button to toggle the panel */}
       <div className="slide">
-        <a href="#" className="pull-me" onClick={togglePanel}>COMING SOON</a>
+        <a href="#" className="pull-me" onClick={togglePanel}>...</a>
       </div>
     </div>
   );
