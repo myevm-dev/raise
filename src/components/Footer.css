@@ -163,3 +163,18 @@
   font-size: 14px;
   text-align: center;
 }
+
+.wallet-button.connected {
+  background-color: #f87171;
+  color: #fff;
+}
+
+.wallet-button.connected:hover {
+  background-color: #ef4444;
+}
+
+.connected-account {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}

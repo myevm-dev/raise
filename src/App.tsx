@@ -34,6 +34,55 @@ function App() {
     }
   };
 
+  const disconnectWallet = () => {
+    setAccount(null); // Reset account state
+    setSwapFromNFT(null); // Reset Swap From NFT
+    setSwapToNFT(null); // Reset Swap To NFT
+  };
+
+  const handleSwap = async () => {
+    if (!swapFromNFT || !swapToNFT) {
+      alert("Both 'Swap From' and 'Swap To' NFTs must be selected.");
+      return;
+    }
+
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum as ethers.Eip1193Provider);
+      const signer = await provider.getSigner();
+
+      const nftBackedTokenContract = new ethers.Contract(
+        "0xb736fd496c15c7285a0e61d0ae24b6020d0da387", // Replace with your contract address
+        [
+          {
+            inputs: [
+              { internalType: "uint256[]", name: "tokensIn", type: "uint256[]" },
+              { internalType: "uint256[]", name: "tokensOut", type: "uint256[]" },
+            ],
+            name: "swap",
+            outputs: [],
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+        ],
+        signer
+      );
+
+      const tx = await nftBackedTokenContract.swap(
+        [BigInt(swapFromNFT.id)], // `tokensIn`
+        [BigInt(swapToNFT.id)] // `tokensOut`
+      );
+
+      await tx.wait();
+
+      alert("Swap completed successfully!");
+      setSwapFromNFT(null);
+      setSwapToNFT(null);
+    } catch (error) {
+      console.error("Error during swap:", error);
+      alert("Swap failed. Please try again.");
+    }
+  };
+
   // Handle selection from Pool NFTs (for Swap To)
   const handlePoolNFTSelect = (nft: NFT) => {
     setSwapToNFT(nft);
@@ -83,8 +132,10 @@ function App() {
         onSwapFromSelect={setSwapFromNFT} // Swap From handler
         swapToNFT={swapToNFT} // Selected Swap To NFT
         swapFromNFT={swapFromNFT} // Selected Swap From NFT
-        connectWallet={connectWallet}
-        account={account}
+        connectWallet={connectWallet} // Connect wallet function
+        disconnectWallet={disconnectWallet} // Disconnect wallet function
+        account={account} // Current wallet account
+        handleSwap={handleSwap} // Swap handler
       />
     </div>
   );
