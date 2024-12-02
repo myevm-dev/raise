@@ -103,16 +103,16 @@ function App() {
         <div className="main-content">
           <div className="toggle-buttons">
             <button
-              className={isPooledView ? "active" : ""}
-              onClick={() => setIsPooledView(true)}
-            >
-              Pool NFTs
-            </button>
-            <button
               className={!isPooledView ? "active" : ""}
               onClick={() => setIsPooledView(false)}
             >
               My NFTs
+            </button>
+            <button
+              className={isPooledView ? "active" : ""}
+              onClick={() => setIsPooledView(true)}
+            >
+              Pool NFTs
             </button>
           </div>
           {isPooledView ? (

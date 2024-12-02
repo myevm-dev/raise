@@ -14,6 +14,7 @@ interface OwnedNFTCarouselProps {
 
 const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, account }) => {
   const [ownedNFTs, setOwnedNFTs] = useState<NFT[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,6 +36,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
     },
   ];
   const IPFS_GATEWAY = "https://nftstorage.link/ipfs/";
+  const ITEMS_PER_PAGE = 24;
 
   const fetchOwnedNFTs = async () => {
     if (!account) {
@@ -86,6 +88,18 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
     }
   }, [account]);
 
+  const handleNext = () => {
+    if (currentIndex + ITEMS_PER_PAGE < ownedNFTs.length) {
+      setCurrentIndex(currentIndex + ITEMS_PER_PAGE);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentIndex - ITEMS_PER_PAGE >= 0) {
+      setCurrentIndex(currentIndex - ITEMS_PER_PAGE);
+    }
+  };
+
   if (isLoading) {
     return <div className="loading-message">Loading owned NFTs...</div>;
   }
@@ -99,17 +113,27 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
   }
 
   return (
-    <div className="carousel-grid">
-      {ownedNFTs.map((nft) => (
-        <div
-          key={nft.id}
-          className="carousel-item"
-          onClick={() => onNFTSelect(nft)} // Send NFT to parent on select
-        >
-          <img src={nft.image} alt={`NFT ${nft.id}`} className="nft-image" />
-          <p className="nft-id">ID: {nft.id}</p>
-        </div>
-      ))}
+    <div className="carousel-container">
+      <button className="carousel-button left" onClick={handlePrevious}>
+        {"<"}
+      </button>
+
+      <div className="carousel-grid">
+        {ownedNFTs.slice(currentIndex, currentIndex + ITEMS_PER_PAGE).map((nft) => (
+          <div
+            key={nft.id}
+            className="carousel-item"
+            onClick={() => onNFTSelect(nft)} // Send NFT to parent on select
+          >
+            <img src={nft.image} alt={`NFT ${nft.id}`} className="nft-image" />
+            <p className="nft-id">ID: {nft.id}</p>
+          </div>
+        ))}
+      </div>
+
+      <button className="carousel-button right" onClick={handleNext}>
+        {">"}
+      </button>
     </div>
   );
 };
