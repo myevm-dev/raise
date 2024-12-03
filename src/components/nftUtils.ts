@@ -3,8 +3,14 @@
 import { JsonRpcProvider, Contract } from "ethers";
 
 // Contract addresses
-export const NFT_CONTRACT_ADDRESS = "0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1";
-export const NFT_BACKED_TOKEN_CONTRACT_ADDRESS = "0xb736fd496c15c7285a0e61d0ae24b6020d0da387";
+export const DEGEN_CONTRACT_ADDRESS = "0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1";
+export const DEGEN_NFT_BACKED_TOKEN_CONTRACT_ADDRESS = "0xb736fd496c15c7285a0e61d0ae24b6020d0da387";
+
+export const GLITCH_CONTRACT_ADDRESS = "0x7cA094eB7E2e305135A0c49835e394b0daca8C56";
+export const GLITCH_NFT_BACKED_TOKEN_CONTRACT_ADDRESS = "0x25fcaceB144227A341C2E621369346247EE7F902";
+
+export const AKID_CONTRACT_ADDRESS = "0x2bEa2b6Bad866b5cA62117855D4b5D8A6C996Db2";
+export const AKID_NFT_BACKED_TOKEN_CONTRACT_ADDRESS = "0x1eD327c0FAD66dB2258268D9841001853cD13Ff1";
 
 // ABIs
 export const NFT_ABI = [
@@ -73,8 +79,8 @@ const IPFS_GATEWAY = "https://nftstorage.link/ipfs/";
 
 export const fetchPoolNFTs = async (): Promise<{ id: string; image: string }[]> => {
   try {
-    const nftContract = new Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, provider);
-    const tokenContract = new Contract(NFT_BACKED_TOKEN_CONTRACT_ADDRESS, TOKEN_CONTRACT_ABI, provider);
+    const nftContract = new Contract(DEGEN_CONTRACT_ADDRESS, NFT_ABI, provider);
+    const tokenContract = new Contract(DEGEN_NFT_BACKED_TOKEN_CONTRACT_ADDRESS, TOKEN_CONTRACT_ABI, provider);
 
     // Fetch Deposit events
     const depositFilter = tokenContract.filters.Deposit(null, null);

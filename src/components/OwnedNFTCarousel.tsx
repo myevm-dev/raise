@@ -18,7 +18,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const NFT_CONTRACT_ADDRESS = "0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1"; // Replace with your actual NFT contract address
+  const DEGEN_CONTRACT_ADDRESS = "0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1"; // Replace with your actual NFT contract address
   const NFT_ABI = [
     {
       inputs: [{ internalType: "address", name: "owner", type: "address" }],
@@ -48,7 +48,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
     try {
       setIsLoading(true);
       const provider = new ethers.BrowserProvider(window.ethereum as ethers.Eip1193Provider);
-      const nftContract = new ethers.Contract(NFT_CONTRACT_ADDRESS, NFT_ABI, provider);
+      const nftContract = new ethers.Contract(DEGEN_CONTRACT_ADDRESS, NFT_ABI, provider);
 
       const tokenIds = await nftContract.tokensOfOwner(account);
 
@@ -101,7 +101,7 @@ const OwnedNFTCarousel: React.FC<OwnedNFTCarouselProps> = ({ onNFTSelect, accoun
   };
 
   if (isLoading) {
-    return <div className="loading-message">Loading owned NFTs...</div>;
+    return <div className="loading-message">Loading owned NFTs... Possibily Connect Wallet</div>;
   }
 
   if (error) {
