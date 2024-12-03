@@ -3,14 +3,14 @@ import "./RightSidebar.css";
 
 const RightSidebar = () => {
   // Define the possible logo keys
-  type LogoKey = "Glitch" | "Degen" | "Akid";
+  type LogoKey =  "Degen" ;
 
   const [selectedLogo, setSelectedLogo] = useState<LogoKey>("Degen");
 
   const logos: Record<LogoKey, string> = {
-    Glitch: "/glitchlogo.svg",
+ //   Glitch: "/glitchlogo.svg",
     Degen: "/degenlogo.svg",
-    Akid: "/akidlogo.svg",
+ //   Akid: "/akidlogo.svg",
   };
 
   const handleSelection = (selection: LogoKey) => {

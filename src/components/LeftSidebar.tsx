@@ -3,14 +3,14 @@ import "./LeftSidebar.css";
 
 const LeftSidebar = () => {
   // Define the possible logo keys
-  type LogoKey = "Glitch" | "Degen" | "Akid";
+  type LogoKey =  "Degen";
 
-  const [selectedLogo, setSelectedLogo] = useState<LogoKey>("Glitch");
+  const [selectedLogo, setSelectedLogo] = useState<LogoKey>("Degen");
 
   const logos: Record<LogoKey, string> = {
-    Glitch: "/glitchlogo.svg",
+ //   Glitch: "/glitchlogo.svg",
     Degen: "/degenlogo.svg",
-    Akid: "/akidlogo.svg",
+ //   Akid: "/akidlogo.svg",
   };
 
   const handleSelection = (selection: LogoKey) => {
@@ -27,9 +27,7 @@ const LeftSidebar = () => {
           value={selectedLogo}
           onChange={(e) => handleSelection(e.target.value as LogoKey)}
         >
-          <option value="Glitch">Glitch</option>
           <option value="Degen">Degen</option>
-          <option value="Akid">Akid</option>
         </select>
       </div>
       <div className="water-tank">
