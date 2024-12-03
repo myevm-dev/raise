@@ -2,29 +2,56 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Align logo to the top */
   padding: 5px 0;
   background-color: #111827;
   position: fixed;
-  Left: 0;
+  left: 0;
   top: 0;
   height: 100vh;
   width: 80px;
   z-index: 1000;
-  border-left: 2px solid var(--backup-border);
+  border-right: 2px solid var(--backup-border);
   overflow-y: auto;
+}
+
+.logo-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem; /* Space between the dropdown and other elements */
+  z-index: 10;
+}
+
+.sidebar-logo {
+  width: 60px; /* Adjust size to fit nicely in the sidebar */
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.logo-selector {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #6600CC;
+  background-color: #351036;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+.logo-selector:focus {
+  border-color: #6600CC;
+  box-shadow: 0 0 5px #6600CC;
 }
 
 .water-tank {
   width: 100%;
   height: 100%;
-  position: absolute; /* Absolute positioning */
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: 1; /* Ensure it is behind the unipool items */
+  z-index: 1; /* Ensure it is behind the logo dropdown */
 }
-
-
 
 .water-tank .liquid {
   width: 100%;
@@ -41,7 +68,10 @@
 }
 
 @keyframes waves {
-  0% { transform: translateX(-15em); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-15em);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
-
