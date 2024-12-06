@@ -19,7 +19,14 @@ const DropDownPanel = () => {
 
       {/* Button to toggle the panel */}
       <div className="slide">
-        <a href="#" className="pull-me" onClick={togglePanel}>VIP</a>
+        <a href="#" className="pull-me" onClick={togglePanel}>
+          <img 
+            src="/viplogo.png" 
+            alt="VIP Logo" 
+            style={{ width: '50px', height: '50px', marginRight: '5px', verticalAlign: 'middle' }} 
+          />
+      
+        </a>
       </div>
     </div>
   );
