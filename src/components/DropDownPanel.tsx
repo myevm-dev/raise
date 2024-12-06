@@ -23,7 +23,7 @@ const DropDownPanel = () => {
           <img 
             src="/viplogo.png" 
             alt="VIP Logo" 
-            style={{ width: '50px', height: '50px', marginRight: '5px', verticalAlign: 'middle' }} 
+            style={{ width: '55px', height: '55px', marginRight: '5px', verticalAlign: 'middle' }} 
           />
       
         </a>
