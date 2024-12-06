@@ -1,5 +1,50 @@
 import React, { useState } from 'react';
-import './SparkleButton.css'; // Import the CSS for the sparkle effect
+import './AccountBalancesCard.css'; // Import the CSS file
+
+const collections = [
+  {
+    id: 1,
+    name: 'DEGEN',
+    logo: './degenlogo.svg',
+    nftBalance: 0,
+    mnftBalance: 0,
+  },
+  {
+    id: 2,
+    name: 'GLITCH ON APE',
+    logo: './glitchlogo.svg',
+    nftBalance: 0,
+    mnftBalance: 0,
+  },
+  {
+    id: 3,
+    name: 'A KID ON APE',
+    logo: './akidlogo.svg',
+    nftBalance: 0,
+    mnftBalance: 0,
+  },
+  {
+    id: 4,
+    name: 'DSNRS',
+    logo: './dsnrslogo.svg',
+    nftBalance: 0,
+    mnftBalance: 0,
+  },
+  {
+    id: 5,
+    name: 'Wyatt Wide World',
+    logo: '/path/to/logo5.png',
+    nftBalance: 0,
+    mnftBalance: 0,
+  },
+  {
+    id: 6,
+    name: 'ApeToons',
+    logo: '/path/to/logo6.png',
+    nftBalance: 0,
+    mnftBalance: 0,
+  },
+];
 
 const AccountBalancesCard: React.FC = () => {
   const [selectedCollection, setSelectedCollection] = useState('Collection 1');
@@ -10,134 +55,41 @@ const AccountBalancesCard: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: '#1c1f26',
-        color: '#fff',
-        border: '2px solid #6600CC',
-        borderRadius: '8px',
-        padding: '20px',
-        textAlign: 'center',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        transition: 'border-color 0.3s ease',
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#5200A3')}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#6600CC')}
-    >
+    <div className="account-balances-card">
       {/* Daily Check-In Button */}
       <div className="sparkle-button">
-        <button>
-          <span className="spark"></span>
-          <span className="backdrop"></span>
-          
-          <span className="text">Daily Check-In</span>
-        </button>
-        <div className="bodydrop"></div>
+        <button>Daily Check-In</button>
       </div>
 
-      {/* Collection List with Balances */}
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'space-between',
-          paddingBottom: '20px',
-          borderBottom: '2px solid #6600CC',
-          marginBottom: '10px',
-        }}
-      >
-        <ul
-          style={{
-            listStyleType: 'none',
-            padding: 0,
-            margin: 0,
-            textAlign: 'left',
-          }}
-        >
-          <li>Collection 1</li>
-          <li>Collection 2</li>
-          <li>Collection 3</li>
-        </ul>
-        <ul
-          style={{
-            listStyleType: 'none',
-            padding: 0,
-            margin: 0,
-            textAlign: 'right',
-          }}
-        >
-          <li>100 mNFT</li>
-          <li>200 mNFT</li>
-          <li>50 mNFT</li>
-        </ul>
+      {/* Grid of Collection Cards */}
+      <div className="collection-grid">
+        {collections.map((collection) => (
+          <div className="collection-card" key={collection.id}>
+            <img src={collection.logo} alt={`${collection.name} Logo`} />
+            <p>{collection.name}</p>
+            <p>NFTs: {collection.nftBalance}</p>
+            <p>mNFTs: {collection.mnftBalance}</p>
+          </div>
+        ))}
       </div>
 
       {/* Bottom Section */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          height: '30%',
-          width: '100%',
-        }}
-      >
-        <p style={{ margin: '10px 0', fontSize: '1.2rem' }}>
-          1 NFT = 1000 mNFT Erc20 Tokens
-        </p>
+      <div className="bottom-section">
+        <p>1 NFT = 1000 mNFT Erc20 Tokens</p>
         <select
           value={selectedCollection}
           onChange={handleCollectionChange}
-          style={{
-            margin: '10px 0',
-            padding: '10px',
-            borderRadius: '4px',
-            border: '2px solid #6600CC',
-            backgroundColor: '#351036',
-            color: '#fff',
-            width: '80%',
-            outline: 'none',
-            fontSize: '1rem',
-            cursor: 'pointer',
-          }}
+          className="collection-selector"
         >
-          <option value="Collection 1">Collection 1</option>
-          <option value="Collection 2">Collection 2</option>
-          <option value="Collection 3">Collection 3</option>
+          {collections.map((collection) => (
+            <option key={collection.id} value={collection.name}>
+              {collection.name}
+            </option>
+          ))}
         </select>
-        <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-          <button
-            style={{
-              backgroundColor: '#6600CC',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '4px',
-              padding: '10px 20px',
-              fontSize: '1rem',
-              cursor: 'pointer',
-            }}
-          >
-            Deposit Liquidity
-          </button>
-          <button
-            style={{
-              backgroundColor: '#6600CC',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '4px',
-              padding: '10px 20px',
-              fontSize: '1rem',
-              cursor: 'pointer',
-            }}
-          >
-            Remove Liquidity
-          </button>
+        <div className="action-buttons">
+          <button className="action-button">Deposit Liquidity</button>
+          <button className="action-button">Remove Liquidity</button>
         </div>
       </div>
     </div>
@@ -145,3 +97,5 @@ const AccountBalancesCard: React.FC = () => {
 };
 
 export default AccountBalancesCard;
+
+

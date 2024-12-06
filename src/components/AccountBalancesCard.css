@@ -1,0 +1,134 @@
+
+
+  .account-balances-card {
+    background-color: #1c1f26;
+    color: #fff;
+    border: 2px solid #6600CC;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.3s ease;
+  }
+  
+  .account-balances-card:hover {
+    border-color: #5200A3;
+  }
+  
+  /* Daily Check-In Button */
+  .sparkle-button {
+    margin-top: 10px;
+    margin-bottom: -5px;
+  }
+  
+  .sparkle-button button {
+    background-color: #6600CC;
+    color: #fff;
+    font-size: 1.8rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sparkle-button button:hover {
+    background-color: #5200A3;
+  }
+  
+  /* Collection Grid */
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Adjust for 3 columns */
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .collection-card {
+    background-color: #111827;
+    border: 1px solid #6600CC;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.85rem; /* Reduced font size for better fit */
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .collection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .collection-card img {
+    width: 50px; /* Adjusted image size */
+    height: 50px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  
+  .collection-card p {
+    margin: 5px 0; /* Reduce spacing between text */
+  }
+  
+  .collection-card p:nth-child(2) {
+    font-size: 0.9rem; /* Slightly larger font for collection name */
+  }
+  
+  .collection-card p:nth-child(3),
+  .collection-card p:nth-child(4) {
+    font-size: 0.75rem; /* Smaller font for NFT/mNFT balances */
+  }
+  
+  /* Bottom Section */
+  .bottom-section {
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .bottom-section p {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+  
+  .collection-selector {
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 4px;
+    border: 2px solid #6600CC;
+    background-color: #351036;
+    color: #fff;
+    width: 100%;
+    outline: none;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .action-button {
+    background-color: #6600CC;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #5200A3;
+  }
+  
