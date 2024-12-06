@@ -21,27 +21,82 @@
   }
   
   /* Daily Check-In Button */
-  .sparkle-button {
-    margin-top: 5px;
-    margin-bottom: 10px;
+  /* Sparkle Button */
+.sparkle-button {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.sparkle-button button {
+  background-color: #6600CC;
+  color: #fff;
+  width: 400px;
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden; /* Ensure sparkles stay within the button bounds */
+}
+
+.sparkle-button button:hover {
+  background-color: #5200A3;
+  box-shadow: 0 0 10px #6600CC, 0 0 20px #5200A3;
+}
+
+.sparkle-button button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent 70%);
+  opacity: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  animation: sparkle-pulse 1s ease-out infinite;
+}
+
+@keyframes sparkle-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.6;
   }
-  
-  .sparkle-button button {
-    background-color: #6600CC;
-    color: #fff;
-    width: 400px;
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  50% {
+    opacity: 0.4;
   }
-  
-  .sparkle-button button:hover {
-    background-color: #5200A3;
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
   }
-  
+}
+
+.sparkle-button button span.spark {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  animation: sparkle-animation 1s ease infinite;
+}
+
+@keyframes sparkle-animation {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(10px, -10px) scale(1.5);
+    opacity: 0.5;
+  }
+}
+
   /* Collection Grid */
   .collection-grid {
     display: grid;
