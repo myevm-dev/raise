@@ -14,12 +14,11 @@ const TickerComponent: React.FC = () => {
         symbols: [
           { description: 'ETHUSD', proName: 'COINBASE:ETHUSD' },
           { description: 'APEUSD', proName: 'COINBASE:APEUSD' },
+          { description: 'GRAILUSDT', proName: 'KUCOIN:GRAILUSDT' },
+          { description: 'GNSUSDT', proName: 'BINANCE:GNSUSDT' },
           { description: 'ARBUSD', proName: 'COINBASE:ARBUSD' },
-          { description: 'PEPEUSD', proName: 'PYTH:PEPEUSD' },
-          { description: 'LINKUSD', proName: 'COINBASE:LINKUSD' },
-          { description: 'UNIUSD', proName: 'COINBASE:UNIUSD' },
-          { description: 'BTCUSD', proName: 'COINBASE:BTCUSD' },
-          { description: 'USDTUSDC', proName: 'COINBASE:USDTUSDC' }
+          { description: 'USDTUSDC', proName: 'COINBASE:USDTUSDC' },
+          { description: 'BTCUSD', proName: 'COINBASE:BTCUSD' }
         ],
         showSymbolLogo: true,
         isTransparent: true,

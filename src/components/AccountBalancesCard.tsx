@@ -32,14 +32,14 @@ const collections = [
   },
   {
     id: 5,
-    name: 'Wyatt Wide World',
-    logo: '/path/to/logo5.png',
+    name: 'TRANSFORMERS',
+    logo: './transformerslogo.png',
     nftBalance: 0,
     mnftBalance: 0,
   },
   {
     id: 6,
-    name: 'ApeToons',
+    name: 'APETOONS',
     logo: '/path/to/logo6.png',
     nftBalance: 0,
     mnftBalance: 0,
