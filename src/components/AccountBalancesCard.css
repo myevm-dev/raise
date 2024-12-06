@@ -29,6 +29,7 @@
   .sparkle-button button {
     background-color: #6600CC;
     color: #fff;
+    width: 400px;
     font-size: 1.5rem;
     padding: 10px 20px;
     border: none;
