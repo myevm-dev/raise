@@ -48,10 +48,16 @@ const collections = [
 
 const AccountBalancesCard: React.FC = () => {
   const [selectedCollection, setSelectedCollection] = useState('Collection 1');
+  const [tokenIds, setTokenIds] = useState('');
 
   const handleCollectionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCollection(event.target.value);
     console.log(`Selected collection: ${event.target.value}`);
+  };
+
+  const handleTokenIdsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTokenIds(event.target.value);
+    console.log(`Entered Token IDs: ${event.target.value}`);
   };
 
   return (
@@ -87,6 +93,16 @@ const AccountBalancesCard: React.FC = () => {
             </option>
           ))}
         </select>
+
+        {/* Text Box for Token IDs */}
+        <input
+          type="text"
+          placeholder="Enter Token IDs (comma-separated)"
+          value={tokenIds}
+          onChange={handleTokenIdsChange}
+          className="token-id-input"
+        />
+
         <div className="action-buttons">
           <button className="action-button">Deposit Liquidity</button>
           <button className="action-button">Remove Liquidity</button>
@@ -97,5 +113,3 @@ const AccountBalancesCard: React.FC = () => {
 };
 
 export default AccountBalancesCard;
-
-

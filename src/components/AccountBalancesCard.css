@@ -22,14 +22,14 @@
   
   /* Daily Check-In Button */
   .sparkle-button {
-    margin-top: 10px;
-    margin-bottom: -5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
   }
   
   .sparkle-button button {
     background-color: #6600CC;
     color: #fff;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -130,5 +130,27 @@
   
   .action-button:hover {
     background-color: #5200A3;
+  }
+  
+
+  /* Token ID Input */
+.token-id-input {
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 4px;
+    border: 2px solid #6600CC;
+    background-color: #351036;
+    color: #fff;
+    width: 100%; /* Full width to match other elements */
+    outline: none;
+    font-size: 0.9rem;
+    text-align: center;
+    box-sizing: border-box; /* Prevent padding from affecting width */
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .token-id-input:focus {
+    border-color: #5200A3;
+    background-color: #291028;
   }
   
