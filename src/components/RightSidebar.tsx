@@ -8,9 +8,8 @@ const RightSidebar = () => {
   const [selectedLogo, setSelectedLogo] = useState<LogoKey>("Degen");
 
   const logos: Record<LogoKey, string> = {
- //   Glitch: "/glitchlogo.svg",
     Degen: "/degenlogo.svg",
- //   Akid: "/akidlogo.svg",
+
   };
 
   const handleSelection = (selection: LogoKey) => {
@@ -27,9 +26,7 @@ const RightSidebar = () => {
           value={selectedLogo}
           onChange={(e) => handleSelection(e.target.value as LogoKey)}
         >
-          <option value="Glitch">Glitch</option>
           <option value="Degen">Degen</option>
-          <option value="Akid">Akid</option>
         </select>
       </div>
       <div className="water-tank">
