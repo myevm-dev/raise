@@ -32,8 +32,8 @@ const collections = [
   },
   {
     id: 5,
-    name: 'TRANSFORMERS',
-    logo: './transformerslogo.png',
+    name: 'WYATTS WIDE WORLD',
+    logo: './wyattslogo.svg',
     nftBalance: 0,
     mnftBalance: 0,
   },

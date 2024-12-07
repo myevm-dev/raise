@@ -20,7 +20,7 @@ const LeftStatCard: React.FC = () => {
       onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#5200A3')}
       onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#6600CC')}
     >
-      <p style={{ margin: 0, fontSize: '1.2rem' }}>Stats Soon</p>
+      <p style={{ margin: 0, fontSize: '1.2rem' }}>Stake Ape, Earn NFTs</p>
     </div>
   );
 };
