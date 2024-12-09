@@ -23,27 +23,7 @@ const collections = [
     nftBalance: 0,
     mnftBalance: 0,
   },
-  {
-    id: 4,
-    name: 'DSNRS',
-    logo: './dsnrslogo.svg',
-    nftBalance: 0,
-    mnftBalance: 0,
-  },
-  {
-    id: 5,
-    name: 'WYATTS WIDE WORLD',
-    logo: './wyattslogo.svg',
-    nftBalance: 0,
-    mnftBalance: 0,
-  },
-  {
-    id: 6,
-    name: 'APETOONS',
-    logo: '/path/to/logo6.png',
-    nftBalance: 0,
-    mnftBalance: 0,
-  },
+
 ];
 
 const AccountBalancesCard: React.FC = () => {
@@ -62,9 +42,12 @@ const AccountBalancesCard: React.FC = () => {
 
   return (
     <div className="account-balances-card">
-      {/* Daily Check-In Button */}
+      {/* Daily Check-In Button with Tooltip */}
       <div className="sparkle-button">
-        <button>Daily Check-In</button>
+        <div className="tooltip-container">
+          <button>Daily Check-In</button>
+          <span className="tooltip-text">Coming Soon</span>
+        </div>
       </div>
 
       {/* Grid of Collection Cards */}

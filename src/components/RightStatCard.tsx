@@ -20,7 +20,7 @@ const RightStatCard: React.FC = () => {
       onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#5200A3')}
       onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#6600CC')}
     >
-      <p style={{ margin: 0, fontSize: '1.2rem' }}>Buy Lootbox</p>
+      <p style={{ margin: 0, fontSize: '1.2rem' }}>Earn mDEGEN</p>
     </div>
   );
 };
