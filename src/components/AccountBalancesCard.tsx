@@ -68,39 +68,39 @@ const AccountBalancesCard: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchBalances = async () => {
-      const provider = getProvider();
-      if (!provider) return;
-    
-      const signer = await provider.getSigner();
-      const address = await signer.getAddress();
-      setUserAddress(address);
-    
-      const updatedCollections = await Promise.all(
-        collections.map(async (collection) => {
-          try {
-            const nftContract = new ethers.Contract(collection.nftAddress, ERC721_ABI, provider);
-            const mnftContract = new ethers.Contract(collection.mnftAddress, ERC20_ABI, provider);
-    
-            const nftBalance = await nftContract.balanceOf(address);
-            const mnftBalance = await mnftContract.balanceOf(address);
-    
-            return {
-              ...collection,
-              nftBalance: nftBalance.toString(),
-              mnftBalance: parseFloat(ethers.formatEther(mnftBalance)).toFixed(3), // Round to 3 decimal places
-            };
-          } catch (error) {
-            console.error(`Error fetching balances for ${collection.name}:`, error);
-            return collection;
-          }
-        })
-      );
-    
-      setCollections(updatedCollections);
-    };
+  const fetchBalances = async () => {
+    const provider = getProvider();
+    if (!provider) return;
 
+    const signer = await provider.getSigner();
+    const address = await signer.getAddress();
+    setUserAddress(address);
+
+    const updatedCollections = await Promise.all(
+      collections.map(async (collection) => {
+        try {
+          const nftContract = new ethers.Contract(collection.nftAddress, ERC721_ABI, provider);
+          const mnftContract = new ethers.Contract(collection.mnftAddress, ERC20_ABI, provider);
+
+          const nftBalance = await nftContract.balanceOf(address);
+          const mnftBalance = await mnftContract.balanceOf(address);
+
+          return {
+            ...collection,
+            nftBalance: nftBalance.toString(),
+            mnftBalance: parseFloat(ethers.formatEther(mnftBalance)).toFixed(3), // Round to 3 decimal places
+          };
+        } catch (error) {
+          console.error(`Error fetching balances for ${collection.name}:`, error);
+          return collection;
+        }
+      })
+    );
+
+    setCollections(updatedCollections);
+  };
+
+  useEffect(() => {
     fetchBalances();
   }, []);
 
@@ -130,20 +130,17 @@ const AccountBalancesCard: React.FC = () => {
       const nftContract = new ethers.Contract(collection.nftAddress, ERC721_ABI, signer);
       const depositContract = new ethers.Contract(collection.mnftAddress, CONTRACT_ABI, signer);
 
-      // Check if the contract is approved for all NFTs
       const isApproved = await nftContract.isApprovedForAll(userAddress, collection.mnftAddress);
       if (!isApproved) {
-        console.log(`Setting approval for all NFTs to contract ${collection.mnftAddress}`);
         const approvalTx = await nftContract.setApprovalForAll(collection.mnftAddress, true);
         await approvalTx.wait();
-        console.log('Approval for all NFTs set successfully');
       }
 
-      // Call deposit function with approved token IDs
-      console.log(`Depositing token IDs: ${tokenIdArray}`);
       const tx = await depositContract.deposit(tokenIdArray);
       await tx.wait();
       alert('Deposit successful');
+
+      await fetchBalances(); // Update balances after deposit
     } catch (error) {
       console.error('Error during deposit:', error);
       alert('Deposit failed');
@@ -170,6 +167,8 @@ const AccountBalancesCard: React.FC = () => {
       const tx = await contract.redeem(tokenIdArray);
       await tx.wait();
       alert('Redeem successful');
+
+      await fetchBalances(); // Update balances after redeem
     } catch (error) {
       console.error('Error during redeem:', error);
       alert('Redeem failed');
