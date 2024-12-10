@@ -72,24 +72,24 @@ const AccountBalancesCard: React.FC = () => {
     const fetchBalances = async () => {
       const provider = getProvider();
       if (!provider) return;
-
+    
       const signer = await provider.getSigner();
       const address = await signer.getAddress();
       setUserAddress(address);
-
+    
       const updatedCollections = await Promise.all(
         collections.map(async (collection) => {
           try {
             const nftContract = new ethers.Contract(collection.nftAddress, ERC721_ABI, provider);
             const mnftContract = new ethers.Contract(collection.mnftAddress, ERC20_ABI, provider);
-
+    
             const nftBalance = await nftContract.balanceOf(address);
             const mnftBalance = await mnftContract.balanceOf(address);
-
+    
             return {
               ...collection,
               nftBalance: nftBalance.toString(),
-              mnftBalance: ethers.formatEther(mnftBalance),
+              mnftBalance: parseFloat(ethers.formatEther(mnftBalance)).toFixed(3), // Round to 3 decimal places
             };
           } catch (error) {
             console.error(`Error fetching balances for ${collection.name}:`, error);
@@ -97,7 +97,7 @@ const AccountBalancesCard: React.FC = () => {
           }
         })
       );
-
+    
       setCollections(updatedCollections);
     };
 
