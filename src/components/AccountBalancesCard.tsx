@@ -42,15 +42,30 @@ const initialCollections: Collection[] = [
   },
 ];
 
-const ERC20_ABI = ['function balanceOf(address owner) view returns (uint256)'];
+const ERC20_ABI = [
+  {
+    name: 'balanceOf',
+    type: 'function',
+    inputs: [{ name: 'owner', type: 'address' }],
+    outputs: [{ name: 'balance', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    name: 'transfer',
+    type: 'function',
+    inputs: [
+      { name: 'to', type: 'address' },
+      { name: 'value', type: 'uint256' },
+    ],
+    outputs: [{ name: 'success', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+];
+
 const ERC721_ABI = [
   'function balanceOf(address owner) view returns (uint256)',
   'function setApprovalForAll(address operator, bool approved) external',
   'function isApprovedForAll(address owner, address operator) view returns (bool)',
-];
-const CONTRACT_ABI = [
-  'function deposit(uint256[] tokenIds) external',
-  'function redeem(uint256[] tokenIds) external',
 ];
 
 const AccountBalancesCard: React.FC = () => {
@@ -112,75 +127,63 @@ const AccountBalancesCard: React.FC = () => {
     setTokenIds(event.target.value);
   };
 
-  const handleDeposit = async () => {
-    const collection = collections.find((c) => c.id === selectedCollectionId);
-    if (!collection) return;
-
-    const tokenIdArray = tokenIds.split(',').map((id) => id.trim()).map(Number);
-    if (tokenIdArray.some(isNaN)) {
-      alert('Invalid token IDs');
+  const handleWrap = async () => {
+    const provider = getProvider();
+    if (!provider) {
+      alert('Ethereum provider not found');
       return;
     }
 
-    const provider = getProvider();
-    if (!provider) return;
-
     try {
       const signer = await provider.getSigner();
-      const nftContract = new ethers.Contract(collection.nftAddress, ERC721_ABI, signer);
-      const depositContract = new ethers.Contract(collection.mnftAddress, CONTRACT_ABI, signer);
+      const contract = new ethers.Contract(
+        '0x82d22b3afFdc6b743916a10de096BF6E985fD6c7',
+        [
+          { name: 'deposit', type: 'function', inputs: [], outputs: [], stateMutability: 'payable' },
+        ],
+        signer
+      );
 
-      const isApproved = await nftContract.isApprovedForAll(userAddress, collection.mnftAddress);
-      if (!isApproved) {
-        const approvalTx = await nftContract.setApprovalForAll(collection.mnftAddress, true);
-        await approvalTx.wait();
-      }
-
-      const tx = await depositContract.deposit(tokenIdArray);
+      const tx = await contract.deposit({ value: ethers.parseEther('1') });
       await tx.wait();
-      alert('Deposit successful');
-
-      await fetchBalances(); // Update balances after deposit
+      alert('Successfully wrapped APE to WAPE!');
     } catch (error) {
-      console.error('Error during deposit:', error);
-      alert('Deposit failed');
+      console.error('Error during wrapping APE:', error);
+      alert('Failed to wrap APE');
     }
   };
 
-  const handleRedeem = async () => {
-    const collection = collections.find((c) => c.id === selectedCollectionId);
-    if (!collection) return;
-
-    const tokenIdArray = tokenIds.split(',').map((id) => id.trim()).map(Number);
-    if (tokenIdArray.some(isNaN)) {
-      alert('Invalid token IDs');
+  const handlePay = async () => {
+    const provider = getProvider();
+    if (!provider) {
+      alert('Ethereum provider not found');
       return;
     }
 
-    const provider = getProvider();
-    if (!provider) return;
-
     try {
       const signer = await provider.getSigner();
-      const contract = new ethers.Contract(collection.mnftAddress, CONTRACT_ABI, signer);
+      const wapeContractAddress = '0x82d22b3afFdc6b743916a10de096BF6E985fD6c7';
+      const recipientAddress = '0x23b55E2E37A035578a3cE2122b81aAd1714ebaEf';
 
-      const tx = await contract.redeem(tokenIdArray);
+      const contract = new ethers.Contract(wapeContractAddress, ERC20_ABI, signer);
+
+      const tx = await contract.transfer(recipientAddress, ethers.parseUnits('1', 18));
       await tx.wait();
-      alert('Redeem successful');
-
-      await fetchBalances(); // Update balances after redeem
+      alert('Successfully paid 1 WAPE!');
     } catch (error) {
-      console.error('Error during redeem:', error);
-      alert('Redeem failed');
+      console.error('Error during WAPE transfer:', error);
+      alert('Failed to pay WAPE. Ensure you have enough balance.');
     }
   };
 
   return (
     <div className="account-balances-card">
       <div className="sparkle-button">
-        <div className="tooltip-container">
-          <button>Mint Daily Check-In: 1 APE</button>
-          <span className="tooltip-text">Coming Soon</span>
+        <h2>Daily Check-In: Pay 1 APE</h2>
+        <h5 style={{ color: 'grey', fontWeight: 'normal' }}>Check-ins are recorded on-chain. <br /> Funds will support liquidity and play a critical role in allocations at TGE.</h5>
+        <div className="button-container" style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+          <button onClick={handleWrap} style={{ width: '50%' }}>Wrap 1 APE</button>
+          <button onClick={handlePay} style={{ width: '50%' }}>Pay 1 WAPE</button>
         </div>
       </div>
 
@@ -205,8 +208,7 @@ const AccountBalancesCard: React.FC = () => {
         >
           {collections.map((collection) => (
             <option key={collection.id} value={collection.id}>
-              {collection.name}
-            </option>
+              {collection.name}</option>
           ))}
         </select>
 
@@ -219,10 +221,10 @@ const AccountBalancesCard: React.FC = () => {
         />
 
         <div className="action-buttons">
-          <button className="action-button" onClick={handleDeposit}>
+          <button className="action-button" disabled>
             Deposit Liquidity
           </button>
-          <button className="action-button" onClick={handleRedeem}>
+          <button className="action-button" disabled>
             Remove Liquidity
           </button>
         </div>
