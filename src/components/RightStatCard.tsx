@@ -101,7 +101,7 @@ const RightStatCard: React.FC = () => {
       <p style={{ margin: 0, fontSize: '1.2rem' }}>Buy LootBox Soon</p>
       <input
         type="text"
-        placeholder="Enter amount (in ETH)"
+        placeholder="Enter amount (in APE)"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         style={{
