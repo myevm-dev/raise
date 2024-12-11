@@ -179,7 +179,7 @@ const AccountBalancesCard: React.FC = () => {
     <div className="account-balances-card">
       <div className="sparkle-button">
         <div className="tooltip-container">
-          <button>Mint Daily Check-In: 0.1 APE</button>
+          <button>Mint Daily Check-In: 1 APE</button>
           <span className="tooltip-text">Coming Soon</span>
         </div>
       </div>
