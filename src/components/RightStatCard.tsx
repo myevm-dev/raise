@@ -90,7 +90,6 @@ const RightStatCard: React.FC = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
         alignItems: 'center',
         gap: '10px',
         transition: 'border-color 0.3s ease',
@@ -98,7 +97,6 @@ const RightStatCard: React.FC = () => {
       onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#5200A3')}
       onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#6600CC')}
     >
-      <p style={{ margin: 0, fontSize: '1.2rem' }}>Buy LootBox Soon</p>
       <input
         type="text"
         placeholder="Enter amount (in APE)"
@@ -109,36 +107,39 @@ const RightStatCard: React.FC = () => {
           borderRadius: '4px',
           border: '1px solid #ccc',
           marginBottom: '10px',
+          width: '220px', // Adjusted to match the button width
         }}
       />
-      <button
-        onClick={handleWrap}
-        style={{
-          padding: '10px 20px',
-          borderRadius: '4px',
-          border: 'none',
-          backgroundColor: '#6600CC',
-          color: '#fff',
-          cursor: 'pointer',
-        }}
-        disabled={loading}
-      >
-        {loading ? 'Wrapping...' : 'Wrap APE'}
-      </button>
-      <button
-        onClick={handleUnwrap}
-        style={{
-          padding: '10px 20px',
-          borderRadius: '4px',
-          border: 'none',
-          backgroundColor: '#6600CC',
-          color: '#fff',
-          cursor: 'pointer',
-        }}
-        disabled={loading}
-      >
-        {loading ? 'Unwrapping...' : 'Unwrap APE'}
-      </button>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <button
+          onClick={handleWrap}
+          style={{
+            padding: '10px 20px',
+            borderRadius: '4px',
+            border: 'none',
+            backgroundColor: '#6600CC',
+            color: '#fff',
+            cursor: 'pointer',
+          }}
+          disabled={loading}
+        >
+          {loading ? 'Wrapping...' : 'Wrap APE'}
+        </button>
+        <button
+          onClick={handleUnwrap}
+          style={{
+            padding: '10px 20px',
+            borderRadius: '4px',
+            border: 'none',
+            backgroundColor: '#6600CC',
+            color: '#fff',
+            cursor: 'pointer',
+          }}
+          disabled={loading}
+        >
+          {loading ? 'Unwrapping...' : 'Unwrap APE'}
+        </button>
+      </div>
     </div>
   );
 };
