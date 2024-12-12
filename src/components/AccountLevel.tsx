@@ -85,7 +85,7 @@ const AccountLevel: React.FC = () => {
           <p style={{ fontSize: '3rem', margin: '0 0 10px 0', fontWeight: 'bold', color: '#6600CC' }}>
             NOOB
           </p>
-          <p style={{ fontSize: '1.2rem', margin: '0 0 10px 0' }}>0/500 APE value in swaps</p>
+          <p style={{ fontSize: '1.2rem', margin: '0 0 10px 0' }}>0/100 APE value in swaps</p>
           <button
             style={{
               padding: '10px 20px',
