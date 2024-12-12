@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const AccountLevel: React.FC = () => {
-  const steps = ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6', 'Step 7'];
+  const levels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
+  const [activeLevel, setActiveLevel] = useState<number>(0); // Default to Level 1
 
   return (
     <div
@@ -23,7 +24,7 @@ const AccountLevel: React.FC = () => {
       onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#5200A3')}
       onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#6600CC')}
     >
-      {/* Step Counter */}
+      {/* Level Counter */}
       <div
         style={{
           display: 'flex',
@@ -31,42 +32,35 @@ const AccountLevel: React.FC = () => {
           marginBottom: '20px',
         }}
       >
-        {steps.map((step, index) => (
+        {levels.map((level, index) => (
           <div
             key={index}
+            onClick={() => setActiveLevel(index)}
             style={{
               padding: '10px 15px',
               borderRadius: '4px',
-              backgroundColor: index === 0 ? '#6600CC' : '#3a3d45', // Highlight Step 1
+              backgroundColor: index === 0 ? '#6600CC' : activeLevel === index ? '#5200A3' : '#3a3d45',
               color: '#fff',
-              fontWeight: index === 0 ? 'bold' : 'normal',
+              fontWeight: index === 0 || activeLevel === index ? 'bold' : 'normal',
               textAlign: 'center',
               cursor: 'pointer',
               transition: 'background-color 0.3s ease',
             }}
           >
-            {step}
+            {level}
           </div>
         ))}
       </div>
 
-      {/* Account Level Text */}
-      <p
-        style={{
-          margin: '0 0 10px 0',
-          fontSize: '1.2rem',
-        }}
-      >
-        Account Level: Noob
-      </p>
 
-      {/* Account Level Image */}
+
+      {/* Current Level Image */}
       <img
-        src="/noob.png"
-        alt="Account Level"
+        src={`/${activeLevel + 1}.png`} // Dynamically load image based on the active level
+        alt={`Level ${activeLevel + 1}`}
         style={{
-          maxWidth: '100%',
-          maxHeight: '100%',
+          maxWidth: '80%',
+          maxHeight: '80%',
           objectFit: 'contain',
           borderRadius: '4px',
         }}
