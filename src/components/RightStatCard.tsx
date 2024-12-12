@@ -105,9 +105,13 @@ const RightStatCard: React.FC = () => {
         style={{
           padding: '10px',
           borderRadius: '4px',
-          border: '1px solid #ccc',
-          marginBottom: '1px',
-          width: '220px', // Adjusted to match the button width
+          border: '1px solid #6600CC',
+          marginBottom: '2px',
+          width: '220px',
+          backgroundColor: '#121212', // Dark background
+          color: '#fff', // White text for contrast
+          fontSize: '1rem',
+          textAlign: 'center',
         }}
       />
       <div style={{ display: 'flex', gap: '10px' }}>
