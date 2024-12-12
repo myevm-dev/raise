@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const AccountLevel: React.FC = () => {
-  const levels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
+  const levels = ['Noob', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
   const [activeLevel, setActiveLevel] = useState<number>(0); // Default to Level 1
 
   return (
@@ -71,7 +71,7 @@ const AccountLevel: React.FC = () => {
           }}
         />
 
-        {/* Placeholder for Stats or Other Content */}
+        {/* Current Level and Progress */}
         <div
           style={{
             marginLeft: '20px',
@@ -81,7 +81,27 @@ const AccountLevel: React.FC = () => {
             justifyContent: 'center',
           }}
         >
-          <p>Stats</p>
+          <p style={{ fontSize: '2.2rem', margin: '0 0 10px 0', fontWeight: 'bold' }}>Current Level:</p>
+          <p style={{ fontSize: '3rem', margin: '0 0 10px 0', fontWeight: 'bold', color: '#6600CC' }}>
+            NOOB
+          </p>
+          <p style={{ fontSize: '1.2rem', margin: '0 0 10px 0' }}>0/500 APE value in swaps</p>
+          <button
+            style={{
+              padding: '10px 20px',
+              fontSize: '1rem',
+              backgroundColor: '#6600CC',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              transition: 'background-color 0.3s ease',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5200A3')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#6600CC')}
+          >
+            Collect
+          </button>
         </div>
       </div>
     </div>
