@@ -179,12 +179,8 @@ const AccountBalancesCard: React.FC = () => {
   return (
     <div className="account-balances-card">
       <div className="sparkle-button">
-        <h2>Daily Check-In: Pay 1 APE</h2>
-        <h5 style={{ color: 'grey', fontWeight: 'normal' }}>Check-ins are recorded on-chain with 2 steps. <br /> Funds will support liquidity and play a critical role in allocations at TGE.</h5>
-        <div className="button-container" style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <button onClick={handleWrap} style={{ width: '50%' }}>Wrap 1 APE</button>
-          <button onClick={handlePay} style={{ width: '50%' }}>Pay 1 WAPE</button>
-        </div>
+
+
       </div>
 
       <div className="collection-grid">

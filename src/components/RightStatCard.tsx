@@ -106,7 +106,7 @@ const RightStatCard: React.FC = () => {
           padding: '10px',
           borderRadius: '4px',
           border: '1px solid #ccc',
-          marginBottom: '10px',
+          marginBottom: '1px',
           width: '220px', // Adjusted to match the button width
         }}
       />
@@ -140,6 +140,32 @@ const RightStatCard: React.FC = () => {
           {loading ? 'Unwrapping...' : 'Unwrap APE'}
         </button>
       </div>
+      {/* Add the image below the buttons */}
+      <img
+        src="/lootbox.png"
+        alt="Lootbox"
+        style={{
+          marginTop: '-25px',
+          width: '180px',
+          height: '180px',
+          objectFit: 'cover',
+        }}
+      />
+      {/* Add the "Buy Soon" button */}
+      <button
+        style={{
+          marginTop: '-30px',
+          padding: '10px 20px',
+          borderRadius: '4px',
+          border: 'none',
+          backgroundColor: '#6600CC',
+          color: '#fff',
+          cursor: 'pointer',
+        }}
+        disabled
+      >
+        Buy Soon
+      </button>
     </div>
   );
 };
