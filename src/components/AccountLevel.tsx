@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 const AccountLevel: React.FC = () => {
   const levels = ['Noob', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
-  const [activeLevel, setActiveLevel] = useState<number>(0); // Default to Level 1
+  const levelThresholds = [100, 500, 1000, 5000, 50000, 250000, 1000000]; // Thresholds for each level
+  const [activeLevel, setActiveLevel] = useState<number>(0); // Default to Level 1 (Noob)
 
   return (
     <div
@@ -17,7 +18,7 @@ const AccountLevel: React.FC = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start', // Aligns content to the left
+        alignItems: 'flex-start',
         transition: 'border-color 0.3s ease',
       }}
       onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#5200A3')}
@@ -57,35 +58,69 @@ const AccountLevel: React.FC = () => {
           display: 'flex',
           width: '100%',
           alignItems: 'flex-start',
+          gap: '20px',
         }}
       >
-        {/* Current Level Image */}
-        <img
-          src={`/${activeLevel + 1}.png`} // Dynamically load image based on the active level
-          alt={`Level ${activeLevel + 1}`}
+        {/* Image Container */}
+        <div
           style={{
-            maxWidth: '75%', // Adjust to fit desired size
-            maxHeight: '75%', // Adjust height constraints
-            objectFit: 'contain',
+            width: '300px',
+            height: '250px', // Slightly reduced height to bring it higher
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden',
             borderRadius: '4px',
+            marginTop: '-20px', // Bring the image closer to the level counter
           }}
-        />
+        >
+          <img
+            src={`/${activeLevel + 1}.png`} // Dynamically load image based on the active level
+            alt={`Level ${activeLevel + 1}`}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+            }}
+          />
+        </div>
 
         {/* Current Level and Progress */}
         <div
           style={{
-            marginLeft: '20px',
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
           }}
         >
-          <p style={{ fontSize: '2.2rem', margin: '0 0 10px 0', fontWeight: 'bold' }}>Current Level:</p>
-          <p style={{ fontSize: '3rem', margin: '0 0 10px 0', fontWeight: 'bold', color: '#6600CC' }}>
-            NOOB
+          <p
+            style={{
+              fontSize: '2.2rem',
+              margin: '0 0 10px 0',
+              fontWeight: 'bold',
+            }}
+          >
+            {activeLevel === 0 ? 'Current Level:' : 'Upcoming Level:'}
           </p>
-          <p style={{ fontSize: '1.2rem', margin: '0 0 10px 0' }}>0/100 APE value in swaps</p>
+          <p
+            style={{
+              fontSize: '3rem',
+              margin: '0 0 10px 0',
+              fontWeight: 'bold',
+              color: '#6600CC',
+            }}
+          >
+            {levels[activeLevel]}
+          </p>
+          <p
+            style={{
+              fontSize: '1.2rem',
+              margin: '0 0 10px 0',
+            }}
+          >
+            0/{levelThresholds[activeLevel]} APE value in swaps
+          </p>
           <button
             style={{
               padding: '10px 20px',
