@@ -17,8 +17,7 @@ const AccountLevel: React.FC = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start', // Aligns content to the left
         transition: 'border-color 0.3s ease',
       }}
       onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#5200A3')}
@@ -52,19 +51,39 @@ const AccountLevel: React.FC = () => {
         ))}
       </div>
 
-
-
-      {/* Current Level Image */}
-      <img
-        src={`/${activeLevel + 1}.png`} // Dynamically load image based on the active level
-        alt={`Level ${activeLevel + 1}`}
+      {/* Content Container */}
+      <div
         style={{
-          maxWidth: '80%',
-          maxHeight: '80%',
-          objectFit: 'contain',
-          borderRadius: '4px',
+          display: 'flex',
+          width: '100%',
+          alignItems: 'flex-start',
         }}
-      />
+      >
+        {/* Current Level Image */}
+        <img
+          src={`/${activeLevel + 1}.png`} // Dynamically load image based on the active level
+          alt={`Level ${activeLevel + 1}`}
+          style={{
+            maxWidth: '75%', // Adjust to fit desired size
+            maxHeight: '75%', // Adjust height constraints
+            objectFit: 'contain',
+            borderRadius: '4px',
+          }}
+        />
+
+        {/* Placeholder for Stats or Other Content */}
+        <div
+          style={{
+            marginLeft: '20px',
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <p>Stats</p>
+        </div>
+      </div>
     </div>
   );
 };
