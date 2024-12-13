@@ -51,7 +51,7 @@ const NFTCarousel: React.FC<NFTCarouselProps> = ({ onNFTSelect }) => {
   };
 
   if (isLoading) {
-    return <div className="loading-message">Loading NFTs...</div>;
+    return <div className="loading-message">Loading NFTs..Running on Public Rpc's, Might take a minute.</div>;
   }
 
   if (nfts.length === 0) {
