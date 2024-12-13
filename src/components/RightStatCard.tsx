@@ -155,20 +155,21 @@ const RightStatCard: React.FC = () => {
           objectFit: 'cover',
         }}
       />
-      {/* Add the "Buy Soon" button */}
+      {/* Updated "Soon Buy Lootbox" button */}
       <button
         style={{
           marginTop: '-30px',
-          padding: '10px 20px',
+          padding: '10px 40px', // Increased width
           borderRadius: '4px',
           border: 'none',
           backgroundColor: '#6600CC',
           color: '#fff',
           cursor: 'pointer',
+          fontSize: '1rem',
         }}
         disabled
       >
-        Buy Soon
+        Soon Buy Lootbox
       </button>
     </div>
   );
