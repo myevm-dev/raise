@@ -9,6 +9,10 @@ const ERC721_ABI = [
   'function isApprovedForAll(address owner, address operator) view returns (bool)',
 ];
 
+const ERC20_ABI = [
+  'function balanceOf(address account) view returns (uint256)',
+];
+
 const CONTRACT_ABI = [
   'function deposit(uint256[] tokenIds) external',
   'function redeem(uint256[] tokenIds) external',
@@ -42,12 +46,15 @@ const AccountBalancesCard: React.FC = () => {
       collections.map(async (collection) => {
         try {
           const nftContract = new ethers.Contract(collection.nftAddress, ERC721_ABI, provider);
+          const mnftContract = new ethers.Contract(collection.mnftAddress, ERC20_ABI, provider);
+
           const nftBalance = await nftContract.balanceOf(address);
+          const mnftBalance = await mnftContract.balanceOf(address);
 
           return {
             ...collection,
             nftBalance: nftBalance.toString(),
-            // mNFT balance is already dynamically set via collection.symbol
+            mnftBalance: parseFloat(ethers.formatEther(mnftBalance)).toFixed(3), // Convert balance to human-readable format
           };
         } catch (error) {
           console.error(`Error fetching balances for ${collection.name}:`, error);
