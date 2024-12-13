@@ -57,16 +57,17 @@
   padding: 0;
 }
 
-
 .card {
-  border: 2px solid #6600CC; /* Purple border */
-  border-radius: 8px; /* Rounded corners */
-  background-color: #111827; /* Dark background */
-  color: #fff; /* Text color */
+  border: 2px solid #6600CC;
+  border-radius: 8px;
+  background-color: #111827;
+  color: #fff;
   padding: 10px;
-  box-sizing: border-box; /* Ensures padding does not increase dimensions */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for elevation */
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 100%; /* Matches the height of other cards */
 }
+
 
 .card:hover {
   border-color: #5200A3; /* Slightly darker purple on hover for interactivity */
