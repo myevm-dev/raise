@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './DropDownPanel.css';
-import TickerComponent from './TickerComponent';
+
 import AccountBalancesCard from './AccountBalancesCard';
 import AccountLevel from './AccountLevel';
 import StakeCard from './LeftStatCard'; // Updated
@@ -16,7 +16,7 @@ const DropDownPanel = () => {
   return (
     <div className="dropdown-panel-container">
       <div className={`panel ${isOpen ? 'open' : ''}`}>
-        <TickerComponent />
+
 
         <div
           style={{
