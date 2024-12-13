@@ -1,94 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import './AccountBalancesCard.css';
-
-interface Collection {
-  id: number;
-  name: string;
-  logo: string;
-  nftAddress: string;
-  mnftAddress: string;
-  nftBalance: string;
-  mnftBalance: string;
-}
-
-const initialCollections: Collection[] = [
-  {
-    id: 1,
-    name: 'DEGEN',
-    logo: './degenlogo.svg',
-    nftAddress: '0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1',
-    mnftAddress: '0xb736fd496c15c7285a0e61d0ae24b6020d0da387',
-    nftBalance: '0',
-    mnftBalance: '0',
-  },
-  {
-    id: 2,
-    name: 'GLITCH ON APE',
-    logo: './glitchlogo.svg',
-    nftAddress: '0x7cA094eB7E2e305135A0c49835e394b0daca8C56',
-    mnftAddress: '0x25fcaceB144227A341C2E621369346247EE7F902',
-    nftBalance: '0',
-    mnftBalance: '0',
-  },
-  {
-    id: 3,
-    name: 'A KID ON APE',
-    logo: './akidlogo.svg',
-    nftAddress: '0x2bEa2b6Bad866b5cA62117855D4b5D8A6C996Db2',
-    mnftAddress: '0x1eD327c0FAD66dB2258268D9841001853cD13Ff1',
-    nftBalance: '0',
-    mnftBalance: '0',
-  },
-  {
-    id: 4,
-    name: 'MONKEES',
-    logo: './monkeeslogo.svg',
-    nftAddress: '0x2bEa2b6Bad866b5cA62117855D4b5D8A6C996Db2',
-    mnftAddress: '0x1eD327c0FAD66dB2258268D9841001853cD13Ff1',
-    nftBalance: '0',
-    mnftBalance: '0',
-  },
-  {
-    id: 5,
-    name: 'DNSRS',
-    logo: './dsnrslogo.svg',
-    nftAddress: '0x0e342F41e1B96532207F1Ad6D991969f4b58e5a1',
-    mnftAddress: '0xb736fd496c15c7285a0e61d0ae24b6020d0da387',
-    nftBalance: '0',
-    mnftBalance: '0',
-  },
-
-  {
-    id: 6,
-    name: 'OOGIES',
-    logo: './oogieslogo.svg',
-    nftAddress: '0x7cA094eB7E2e305135A0c49835e394b0daca8C56',
-    mnftAddress: '0x25fcaceB144227A341C2E621369346247EE7F902',
-    nftBalance: '0',
-    mnftBalance: '0',
-  },
-];
-
-const ERC20_ABI = [
-  {
-    name: 'balanceOf',
-    type: 'function',
-    inputs: [{ name: 'owner', type: 'address' }],
-    outputs: [{ name: 'balance', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    name: 'transfer',
-    type: 'function',
-    inputs: [
-      { name: 'to', type: 'address' },
-      { name: 'value', type: 'uint256' },
-    ],
-    outputs: [{ name: 'success', type: 'bool' }],
-    stateMutability: 'nonpayable',
-  },
-];
+import { Collection, initialCollections } from './collections'; // Import the collections
 
 const ERC721_ABI = [
   'function balanceOf(address owner) view returns (uint256)',
@@ -96,11 +9,17 @@ const ERC721_ABI = [
   'function isApprovedForAll(address owner, address operator) view returns (bool)',
 ];
 
+const CONTRACT_ABI = [
+  'function deposit(uint256[] tokenIds) external',
+  'function redeem(uint256[] tokenIds) external',
+];
+
 const AccountBalancesCard: React.FC = () => {
   const [collections, setCollections] = useState<Collection[]>(initialCollections);
   const [selectedCollectionId, setSelectedCollectionId] = useState<number>(1);
   const [tokenIds, setTokenIds] = useState<string>('');
   const [userAddress, setUserAddress] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const getProvider = (): ethers.BrowserProvider | undefined => {
     if (typeof window.ethereum !== 'undefined') {
@@ -123,15 +42,12 @@ const AccountBalancesCard: React.FC = () => {
       collections.map(async (collection) => {
         try {
           const nftContract = new ethers.Contract(collection.nftAddress, ERC721_ABI, provider);
-          const mnftContract = new ethers.Contract(collection.mnftAddress, ERC20_ABI, provider);
-
           const nftBalance = await nftContract.balanceOf(address);
-          const mnftBalance = await mnftContract.balanceOf(address);
 
           return {
             ...collection,
             nftBalance: nftBalance.toString(),
-            mnftBalance: parseFloat(ethers.formatEther(mnftBalance)).toFixed(3), // Round to 3 decimal places
+            // mNFT balance is already dynamically set via collection.symbol
           };
         } catch (error) {
           console.error(`Error fetching balances for ${collection.name}:`, error);
@@ -147,77 +63,86 @@ const AccountBalancesCard: React.FC = () => {
     fetchBalances();
   }, []);
 
-  const handleCollectionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCollectionId(Number(event.target.value));
-  };
+  const handleDeposit = async () => {
+    const collection = collections.find((c) => c.id === selectedCollectionId);
+    if (!collection) return;
 
-  const handleTokenIdsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTokenIds(event.target.value);
-  };
-
-  const handleWrap = async () => {
-    const provider = getProvider();
-    if (!provider) {
-      alert('Ethereum provider not found');
+    const tokenIdArray = tokenIds.split(',').map((id) => id.trim()).map(Number);
+    if (tokenIdArray.some(isNaN)) {
+      alert('Invalid token IDs');
       return;
     }
 
-    try {
-      const signer = await provider.getSigner();
-      const contract = new ethers.Contract(
-        '0x82d22b3afFdc6b743916a10de096BF6E985fD6c7',
-        [
-          { name: 'deposit', type: 'function', inputs: [], outputs: [], stateMutability: 'payable' },
-        ],
-        signer
-      );
+    const provider = getProvider();
+    if (!provider) return;
 
-      const tx = await contract.deposit({ value: ethers.parseEther('1') });
+    try {
+      setIsProcessing(true);
+
+      const signer = await provider.getSigner();
+      const nftContract = new ethers.Contract(collection.nftAddress, ERC721_ABI, signer);
+      const depositContract = new ethers.Contract(collection.mnftAddress, CONTRACT_ABI, signer);
+
+      const isApproved = await nftContract.isApprovedForAll(userAddress, collection.mnftAddress);
+      if (!isApproved) {
+        const approvalTx = await nftContract.setApprovalForAll(collection.mnftAddress, true);
+        await approvalTx.wait();
+      }
+
+      const tx = await depositContract.deposit(tokenIdArray);
       await tx.wait();
-      alert('Successfully wrapped APE to WAPE!');
+
+      alert('Deposit successful!');
+      await fetchBalances();
     } catch (error) {
-      console.error('Error during wrapping APE:', error);
-      alert('Failed to wrap APE');
+      console.error('Error during deposit:', error);
+      alert('Deposit failed.');
+    } finally {
+      setIsProcessing(false);
     }
   };
 
-  const handlePay = async () => {
-    const provider = getProvider();
-    if (!provider) {
-      alert('Ethereum provider not found');
+  const handleRedeem = async () => {
+    const collection = collections.find((c) => c.id === selectedCollectionId);
+    if (!collection) return;
+
+    const tokenIdArray = tokenIds.split(',').map((id) => id.trim()).map(Number);
+    if (tokenIdArray.some(isNaN)) {
+      alert('Invalid token IDs');
       return;
     }
 
+    const provider = getProvider();
+    if (!provider) return;
+
     try {
+      setIsProcessing(true);
+
       const signer = await provider.getSigner();
-      const wapeContractAddress = '0x82d22b3afFdc6b743916a10de096BF6E985fD6c7';
-      const recipientAddress = '0x23b55E2E37A035578a3cE2122b81aAd1714ebaEf';
+      const redeemContract = new ethers.Contract(collection.mnftAddress, CONTRACT_ABI, signer);
 
-      const contract = new ethers.Contract(wapeContractAddress, ERC20_ABI, signer);
-
-      const tx = await contract.transfer(recipientAddress, ethers.parseUnits('1', 18));
+      const tx = await redeemContract.redeem(tokenIdArray);
       await tx.wait();
-      alert('Successfully paid 1 WAPE!');
+
+      alert('Redeem successful!');
+      await fetchBalances();
     } catch (error) {
-      console.error('Error during WAPE transfer:', error);
-      alert('Failed to pay WAPE. Ensure you have enough balance.');
+      console.error('Error during redeem:', error);
+      alert('Redeem failed.');
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   return (
     <div className="account-balances-card">
-      <div className="sparkle-button">
-
-
-      </div>
-
       <div className="collection-grid">
         {collections.map((collection) => (
           <div className="collection-card" key={collection.id}>
             <img src={collection.logo} alt={`${collection.name} Logo`} />
             <p>{collection.name}</p>
             <p>NFTs: {collection.nftBalance}</p>
-            <p>mNFTs: {collection.mnftBalance}</p>
+            <p>{`m${collection.symbol}: ${collection.mnftBalance}`}</p> {/* Use m + symbol */}
           </div>
         ))}
       </div>
@@ -227,12 +152,13 @@ const AccountBalancesCard: React.FC = () => {
 
         <select
           value={selectedCollectionId}
-          onChange={handleCollectionChange}
+          onChange={(e) => setSelectedCollectionId(Number(e.target.value))}
           className="collection-selector"
         >
           {collections.map((collection) => (
             <option key={collection.id} value={collection.id}>
-              {collection.name}</option>
+              {collection.name}
+            </option>
           ))}
         </select>
 
@@ -240,16 +166,16 @@ const AccountBalancesCard: React.FC = () => {
           type="text"
           placeholder="Enter Token IDs (comma-separated)"
           value={tokenIds}
-          onChange={handleTokenIdsChange}
+          onChange={(e) => setTokenIds(e.target.value)}
           className="token-id-input"
         />
 
         <div className="action-buttons">
-          <button className="action-button" disabled>
-            Deposit Liquidity
+          <button className="action-button" onClick={handleDeposit} disabled={isProcessing}>
+            {isProcessing ? 'Processing...' : 'Deposit Liquidity'}
           </button>
-          <button className="action-button" disabled>
-            Remove Liquidity
+          <button className="action-button" onClick={handleRedeem} disabled={isProcessing}>
+            {isProcessing ? 'Processing...' : 'Remove Liquidity'}
           </button>
         </div>
       </div>
