@@ -103,7 +103,7 @@ const RightStatCard: React.FC = () => {
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         style={{
-          padding: '10px',
+          padding: '5px',
           borderRadius: '4px',
           border: '1px solid #6600CC',
           marginBottom: '2px',
@@ -118,7 +118,7 @@ const RightStatCard: React.FC = () => {
         <button
           onClick={handleWrap}
           style={{
-            padding: '10px 20px',
+            padding: '5px 20px',
             borderRadius: '4px',
             border: 'none',
             backgroundColor: '#6600CC',
