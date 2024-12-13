@@ -119,7 +119,7 @@ const AccountLevel: React.FC = () => {
               margin: '0 0 10px 0',
             }}
           >
-            0/{levelThresholds[activeLevel]} APE value in swaps
+            0/{levelThresholds[activeLevel]} APE in Swap Value
           </p>
           <button
             style={{
