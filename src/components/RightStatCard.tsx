@@ -107,9 +107,9 @@ const RightStatCard: React.FC = () => {
           borderRadius: '4px',
           border: '1px solid #6600CC',
           marginBottom: '2px',
-          width: '220px',
-          backgroundColor: '#121212', // Dark background
-          color: '#fff', // White text for contrast
+          width: '200px',
+          backgroundColor: '#121212',
+          color: '#fff',
           fontSize: '1rem',
           textAlign: 'center',
         }}
@@ -118,7 +118,8 @@ const RightStatCard: React.FC = () => {
         <button
           onClick={handleWrap}
           style={{
-            padding: '5px 20px',
+            width: '110px', // Set equal width for both buttons
+            padding: '10px',
             borderRadius: '4px',
             border: 'none',
             backgroundColor: '#6600CC',
@@ -132,7 +133,8 @@ const RightStatCard: React.FC = () => {
         <button
           onClick={handleUnwrap}
           style={{
-            padding: '10px 20px',
+            width: '110px', // Set equal width for both buttons
+            padding: '10px',
             borderRadius: '4px',
             border: 'none',
             backgroundColor: '#6600CC',
@@ -144,7 +146,6 @@ const RightStatCard: React.FC = () => {
           {loading ? 'Unwrapping...' : 'Unwrap APE'}
         </button>
       </div>
-      {/* Add the image below the buttons */}
       <img
         src="/lootbox.png"
         alt="Lootbox"
@@ -155,11 +156,10 @@ const RightStatCard: React.FC = () => {
           objectFit: 'cover',
         }}
       />
-      {/* Updated "Soon Buy Lootbox" button */}
       <button
         style={{
           marginTop: '-30px',
-          padding: '10px 40px', // Increased width
+          padding: '10px 40px',
           borderRadius: '4px',
           border: 'none',
           backgroundColor: '#6600CC',
