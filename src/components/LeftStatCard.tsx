@@ -37,7 +37,7 @@ const StakeCard: React.FC = () => {
 
       {/* Toggle Buttons for ApeUSD, APE, ApeETH */}
       <div style={{ display: 'flex', gap: '10px' }}>
-        {['ApeUSD', 'APE', 'ApeETH'].map((currency) => (
+        {['ApeUSD', 'WAPE', 'ApeETH'].map((currency) => (
           <button
             key={currency}
             onClick={() => handleCurrencyToggle(currency)}
@@ -60,26 +60,23 @@ const StakeCard: React.FC = () => {
       {/* "Get" Text */}
       <p style={{ fontSize: '1.1rem', fontWeight: 'bold', margin: '0' }}>Get</p>
 
-      {/* Bottom Buttons (Grid of Toggles) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-        {['mDegen', 'mGlitch', 'mAKID', 'mDNSRS', 'mOOGIES', 'mMONKIES'].map((token) => (
-          <button
-            key={token}
-            onClick={() => handleTokenToggle(token)}
-            style={{
-              padding: '5px',
-              borderRadius: '4px',
-              border: 'none',
-              backgroundColor: selectedToken === token ? '#6600CC' : '#3a3d45',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              transition: 'background-color 0.3s ease',
-            }}
-          >
-            {token}
-          </button>
-        ))}
+      {/* Centered mDegen Button */}
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <button
+          onClick={() => handleTokenToggle('mDegen')}
+          style={{
+            padding: '5px',
+            borderRadius: '4px',
+            border: 'none',
+            backgroundColor: selectedToken === 'mDegen' ? '#6600CC' : '#3a3d45',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            transition: 'background-color 0.3s ease',
+          }}
+        >
+          mDegen
+        </button>
       </div>
 
       {/* Amount Input Box */}
@@ -101,7 +98,7 @@ const StakeCard: React.FC = () => {
       />
 
       {/* Stake and Unstake Buttons */}
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}> {/* Added marginBottom */}
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
         <button
           style={{
             width: '120px', // Ensures equal width for both buttons
@@ -131,6 +128,18 @@ const StakeCard: React.FC = () => {
           Unstake
         </button>
       </div>
+
+      {/* Amount Earned */}
+      <p
+        style={{
+          fontSize: '1rem',
+          fontWeight: 'bold',
+          margin: '10px 0 0 0',
+          color: '#fff',
+        }}
+      >
+        Amount Earned: <span style={{ color: '#6600CC' }}>Coming Soon</span>
+      </p>
     </div>
   );
 };
