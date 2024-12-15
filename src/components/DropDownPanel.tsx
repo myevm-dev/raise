@@ -56,16 +56,17 @@ const DropDownPanel = () => {
 
       <div className="slide">
         <a href="#" className="pull-me" onClick={togglePanel}>
-          <img
-            src="/viplogo.png"
-            alt="VIP Logo"
+          <span
             style={{
-              width: '55px',
-              height: '55px',
+              fontSize: '28px',
+              fontWeight: 'bold',
+              color: '#6600CC', // Adjust to your preferred color
               marginRight: '5px',
               verticalAlign: 'middle',
             }}
-          />
+          >
+            Details
+          </span>
         </a>
       </div>
     </div>
