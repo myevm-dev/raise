@@ -58,7 +58,20 @@ function App() {
             </button>
           </div>
           <p className="non-transferable-text">
-            NFTs are non-transferable during minting, a wallet can never hold two.
+            
+            <a
+              href="https://etherscan.io" // Replace with your desired Etherscan link
+              target="_blank"
+              rel="noopener noreferrer"
+              className="etherscan-link"
+            >
+              <img
+                src="https://etherscan.io/images/brandassets/etherscan-logo-circle.svg"
+                alt="Etherscan"
+                className="etherscan-logo"
+              />
+            </a>
+            NFTs are non-transferable while minting,<br /> an address can never hold more than one.
           </p>
         </div>
       </main>

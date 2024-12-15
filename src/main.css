@@ -76,7 +76,7 @@ main {
 
 .card {
   width: 450px;
-  height: 500px; /* Adjust to fit content dynamically */
+  height: 520px; /* Adjust to fit content dynamically */
   border: 2px solid #6600CC;
   border-radius: 10px;
   background-color: #0d0c0d;
@@ -105,17 +105,33 @@ main {
 .card-image {
   margin-top: 5px;
   width: 100%;
-  max-height: 220px; /* Adjust to fit card dimensions */
+  max-height: 250px; /* Adjust to fit card dimensions */
   object-fit: contain; /* Ensure the image scales properly */
   border-radius: 8px;
 }
 
 .non-transferable-text {
-  margin-top: 20px;
+  display: flex;
+  align-items: center; /* Align text and logo vertically */
+  justify-content: center; /* Center content horizontally */
+  gap: 5px; /* Add a small space between the text and logo */
   font-size: 14px;
   color: white;
   text-align: center;
+  margin-top: 10px;
 }
+
+.etherscan-link {
+  display: inline-block;
+}
+
+.etherscan-logo {
+  width: 20px; /* Adjust the logo size */
+  height: 20px;
+  margin-left: 5px; /* Small spacing from text */
+  vertical-align: middle; /* Align with text baseline */
+}
+
 
 
 
