@@ -60,7 +60,7 @@ function App() {
           <p className="non-transferable-text">
             
             <a
-              href="https://etherscan.io" // Replace with your desired Etherscan link
+              href="https://apescan.io/address/0x82d22b3affdc6b743916a10de096bf6e985fd6c7#code" // Replace with your desired Etherscan link
               target="_blank"
               rel="noopener noreferrer"
               className="etherscan-link"
@@ -72,6 +72,18 @@ function App() {
               />
             </a>
             NFTs are non-transferable while minting,<br /> an address can never hold more than one.
+            <a
+              href="https://etherscan.io" // Replace with your desired Etherscan link
+              target="_blank"
+              rel="noopener noreferrer"
+              className="etherscan-link"
+            >
+              <img
+                src="https://etherscan.io/images/brandassets/etherscan-logo-circle.svg"
+                alt="Etherscan"
+                className="etherscan-logo"
+              />
+            </a>
           </p>
         </div>
       </main>
