@@ -1,19 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./DropDownPanel.css";
-
-// Extend the Window interface for Calendly
-declare global {
-  interface Window {
-    Calendly?: {
-      initBadgeWidget: (options: {
-        url: string;
-        text: string;
-        color: string;
-        textColor: string;
-      }) => void;
-    };
-  }
-}
 
 const DropDownPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,25 +7,6 @@ const DropDownPanel = () => {
   const togglePanel = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
-    script.async = true;
-
-    script.onload = () => {
-      if (window.Calendly) {
-        window.Calendly.initBadgeWidget({
-          url: "https://calendly.com/yo-myevm/30min",
-          text: "Schedule time with me",
-          color: "#0069ff",
-          textColor: "#ffffff",
-        });
-      }
-    };
-
-    document.body.appendChild(script);
-  }, []);
 
   return (
     <div className="dropdown-panel-container">
@@ -63,7 +30,6 @@ const DropDownPanel = () => {
           >
             Ecosystem
           </a>
-          {/* Calendly Badge Widget */}
           <a
             href="https://calendly.com/yo-myevm/30min"
             target="_blank"
