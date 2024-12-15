@@ -32,6 +32,10 @@ function App() {
     setAccount(null); // Reset account state
   };
 
+  const handleWrapApe = () => {
+    alert("Wrap Ape functionality initiated!");
+  };
+
   return (
     <div className="app-container">
       <DropDownPanel />
@@ -44,17 +48,27 @@ function App() {
           <div className="card-content">
             <p className="card-detail">Supply: 8</p>
             <p className="card-detail">Price: 3500 APE</p>
-            <button className="mint-button" onClick={() => alert("Minting initiated!")}>
-              Mint
-            </button>
-            
+
+            <div className="button-container">
+              <button
+                className="wrap-button"
+                onClick={handleWrapApe}
+              >
+                Wrap Ape
+              </button>
+              <button
+                className="mint-button"
+                onClick={() => alert("Minting initiated!")}
+              >
+                Mint NFT
+              </button>
+            </div>
             <p className="non-transferable-text">
               NFTs are non-transferable while mint is active
             </p>
           </div>
         </div>
       </main>
-
 
       <Footer
         connectWallet={connectWallet} // Connect wallet function

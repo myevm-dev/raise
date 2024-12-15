@@ -125,27 +125,6 @@ main {
   text-align: center;
 }
 
-.mint-button {
-  margin-top: 5px;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  background-color: #6600CC;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.mint-button:hover {
-  background-color: #5500aa;
-}
-
-
-.mint-button:hover {
-  background-color: #5500aa;
-}
 
 
 .card-detail {
@@ -154,22 +133,30 @@ main {
   margin: 5px 0; /* Spacing between details */
   font-family: Arial, sans-serif; /* Clean font */
 }
-
-.mint-button {
-  margin-top: 5px; /* Add some spacing above the button */
-  padding: 10px 20px; /* Button padding */
-  font-size: 18px; /* Button text size */
-  font-weight: bold; /* Bold text */
-  color: white; /* Text color */
-  background-color: #6600CC; /* Button background color */
-  border: none; /* Remove border */
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease; /* Smooth background color transition */
+.button-container {
+  display: flex;
+  gap: 15px; /* Space between buttons */
+  justify-content: center;
+  margin-top: 10px;
 }
 
-.mint-button:hover {
-  background-color: #5500aa; /* Darker shade on hover */
+.mint-button,
+.wrap-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #6600CC; /* Purple background */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
+.mint-button:hover,
+.wrap-button:hover {
+  background-color: #5500AA; /* Slightly darker purple on hover */
+}
+
 
 
