@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ethers } from "ethers";
 
 import Background from "./components/Background";
 import Footer from "./components/Footer";
 import DropDownPanel from "./components/DropDownPanel";
 import "./main.css";
-
-type NFT = {
-  id: string;
-  image: string;
-};
 
 function App() {
   const [account, setAccount] = useState<string | null>(null);
@@ -45,28 +40,26 @@ function App() {
         <div className="card">
           <h2 className="card-title">Round One NFT</h2>
           <img src="./mocknft.png" alt="Mock NFT" className="card-image" />
-          <div className="card-content">
+
+          <div className="card-detail">
             <p className="card-detail">Supply: 8</p>
             <p className="card-detail">Price: 3500 APE</p>
-
-            <div className="button-container">
-              <button
-                className="wrap-button"
-                onClick={handleWrapApe}
-              >
-                Wrap Ape
-              </button>
-              <button
-                className="mint-button"
-                onClick={() => alert("Minting initiated!")}
-              >
-                Mint NFT
-              </button>
-            </div>
-            <p className="non-transferable-text">
-              NFTs are non-transferable while mint is active
-            </p>
           </div>
+
+          <div className="button-container">
+            <button className="wrap-button" onClick={handleWrapApe}>
+              Wrap Ape
+            </button>
+            <button
+              className="mint-button"
+              onClick={() => alert("Minting initiated!")}
+            >
+              Mint NFT
+            </button>
+          </div>
+          <p className="non-transferable-text">
+            NFTs are non-transferable while mint is active
+          </p>
         </div>
       </main>
 

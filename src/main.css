@@ -76,7 +76,7 @@ main {
 
 .card {
   width: 450px;
-  height: 450px; /* Adjust to fit content dynamically */
+  height: 500px; /* Adjust to fit content dynamically */
   border: 2px solid #6600CC;
   border-radius: 10px;
   background-color: #0d0c0d;
@@ -105,39 +105,32 @@ main {
 .card-image {
   margin-top: 5px;
   width: 100%;
-  max-height: 160px; /* Adjust to fit card dimensions */
+  max-height: 220px; /* Adjust to fit card dimensions */
   object-fit: contain; /* Ensure the image scales properly */
   border-radius: 8px;
 }
 
 .non-transferable-text {
-  margin-top: 5px;
+  margin-top: 20px;
   font-size: 14px;
   color: white;
   text-align: center;
 }
 
 
+
 .card-detail {
-  margin-top: 15px;
-  font-size: 18px;
-  color: white;
-  text-align: center;
+  margin: 0.5;
+  font-size: 16px; /* Consistent font size */
+  color: white; /* Ensure white text */
 }
 
 
-
-.card-detail {
-  font-size: 18px; /* Detail font size */
-  color: white; /* Detail color */
-  margin: 5px 0; /* Spacing between details */
-  font-family: Arial, sans-serif; /* Clean font */
-}
 .button-container {
   display: flex;
-  gap: 15px; /* Space between buttons */
+  gap: 10px; /* Space between buttons */
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .mint-button,
