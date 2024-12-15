@@ -37,7 +37,7 @@ const DropDownPanel = () => {
             className="panel-button"
             style={{ backgroundColor: "#0069ff" }}
           >
-            Schedule time with me
+            Schedule a Call
           </a>
           <a
             href="https://myevm.gitbook.io/myevm/"
