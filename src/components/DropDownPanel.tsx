@@ -40,7 +40,7 @@ const DropDownPanel = () => {
             Schedule time with me
           </a>
           <a
-            href="https://myevm.xyz"
+            href="https://myevm.gitbook.io/myevm/"
             target="_blank"
             rel="noopener noreferrer"
             className="panel-button"
