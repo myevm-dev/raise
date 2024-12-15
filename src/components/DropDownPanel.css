@@ -73,3 +73,45 @@
   border-color: #5200A3; /* Slightly darker purple on hover for interactivity */
   transition: border-color 0.3s ease; /* Smooth transition for hover effect */
 }
+
+
+.panel-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.panel-image {
+  max-width: 75%; /* Image size stays the same */
+  max-height: 70%; 
+  object-fit: contain; /* Ensure the image maintains its aspect ratio */
+  transform: scale(0.8); /* Further scales down the image by 20% */
+  transition: transform 0.3s ease; /* Smooth scaling transition */
+}
+
+.panel-buttons-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  margin-top: 10px; /* Reduce margin above the buttons */
+}
+
+.panel-button {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: #6600CC;
+  border-radius: 8px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.panel-button:hover {
+  background-color: #5500aa;
+}
