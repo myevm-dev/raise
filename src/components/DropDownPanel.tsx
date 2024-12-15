@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import './DropDownPanel.css';
 
-import AccountBalancesCard from './AccountBalancesCard';
-import AccountLevel from './AccountLevel';
-import StakeCard from './LeftStatCard'; // Updated
-import RightStatCard from './RightStatCard';
 
 const DropDownPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +23,7 @@ const DropDownPanel = () => {
             height: '80%',
           }}
         >
-          <AccountBalancesCard />
+ 
         </div>
 
         <div
@@ -39,7 +35,7 @@ const DropDownPanel = () => {
             height: '35%',
           }}
         >
-          <AccountLevel />
+
         </div>
 
         <div
@@ -53,12 +49,8 @@ const DropDownPanel = () => {
             justifyContent: 'space-between',
           }}
         >
-          <div style={{ width: '48%', height: '100%' }}>
-            <StakeCard /> {/* Updated */}
-          </div>
-          <div style={{ width: '48%', height: '100%' }}>
-            <RightStatCard />
-          </div>
+
+
         </div>
       </div>
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import LeftSidebar from "./components/LeftSidebar";
-import RightSidebar from "./components/RightSidebar";
+
 import Background from "./components/Background";
 import Footer from "./components/Footer";
 import DropDownPanel from "./components/DropDownPanel";
@@ -117,34 +116,8 @@ function App() {
           <DropDownPanel />
           <Background />
           <main className="main-container">
-            <LeftSidebar />
 
-            <div className="main-content">
-              <div className="toggle-buttons">
-                <button
-                  className={!isPooledView ? "active" : ""}
-                  onClick={() => setIsPooledView(false)}
-                >
-                  My NFTs
-                </button>
-                <button
-                  className={isPooledView ? "active" : ""}
-                  onClick={() => setIsPooledView(true)}
-                >
-                  Pool NFTs
-                </button>
-              </div>
-              {isPooledView ? (
-                <NFTCarousel onNFTSelect={handlePoolNFTSelect} />
-              ) : (
-                <OwnedNFTCarousel
-                  onNFTSelect={handleOwnedNFTSelect}
-                  account={account}
-                />
-              )}
-            </div>
 
-            <RightSidebar />
           </main>
           <Footer
             onSwapToSelect={setSwapToNFT} // Swap To handler
