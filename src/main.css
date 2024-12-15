@@ -1,3 +1,29 @@
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column; /* Stack the cards vertically */
+    gap: 20px; /* Reduce the space between cards */
+    margin-top: 20px; /* Adjust spacing for smaller screens */
+  }
+
+  .card {
+    width: 90%; /* Adjust card width for mobile */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 400px; /* Set a max width */
+  }
+
+  .toggle-buttons {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Reduce spacing between buttons */
+    width: 100%; /* Full width for mobile */
+  }
+
+  .toggle-buttons button {
+    width: 90%; /* Buttons take up 90% of the screen width */
+  }
+} /* <- Close the media query here */
+
+/* Add your existing styles below this closing brace */
+
 html, body {
   height: 100%; /* Ensure the body and html take up the full viewport height */
   margin: 0; /* Remove default margins */
@@ -33,16 +59,12 @@ main {
   position: relative; /* For positioning child elements */
 }
 
-
-
-
 .main-content {
   display: flex;
   flex-direction: column;
   flex: 1;
   overflow: hidden;
 }
-
 
 .app-container {
   height: 100vh;
@@ -55,7 +77,55 @@ main {
   display: flex;
   flex: 1;
   overflow: hidden;
+  justify-content: center; /* Center cards horizontally */
+  align-items: center; /* Center cards vertically */
 }
+
+.card-container {
+  margin-top: 50px;
+  display: flex;
+  gap: 160px;
+}
+
+.card {
+  width: 450px; /* Adjust width as needed */
+  height: 450px; /* Adjust height as needed */
+  background-color: #1d1b1c; /* Pink color */
+  border: 2px solid #6600CC; /* Thin purple border */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.card-image {
+  width: 100%; /* Ensure the image fills the card */
+  height: 100%; /* Maintain aspect ratio */
+  object-fit: cover; /* Scale the image to cover the card without distortion */
+  border-radius: 10px; /* Match the card's rounded corners */
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column; /* Stack the content vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  height: 100%; /* Use full height of the card */
+  text-align: center; /* Center-align the text */
+}
+
+.card-title {
+  font-size: 24px; /* Title font size */
+  color: white; /* Title color */
+  margin: 0 0 10px 0; /* Add spacing below the title */
+  font-family: Arial, sans-serif; /* Clean font */
+}
+
+.card-detail {
+  font-size: 18px; /* Detail font size */
+  color: white; /* Detail color */
+  margin: 5px 0; /* Spacing between details */
+  font-family: Arial, sans-serif; /* Clean font */
+}
+
+
 
 .toggle-buttons {
   display: flex;
@@ -84,7 +154,6 @@ main {
   background-color: #6600CC;
   color: #fff;
 }
-
 
 .popup-overlay {
   position: fixed;

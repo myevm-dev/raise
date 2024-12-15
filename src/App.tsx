@@ -4,9 +4,6 @@ import { ethers } from "ethers";
 import Background from "./components/Background";
 import Footer from "./components/Footer";
 import DropDownPanel from "./components/DropDownPanel";
-import NFTCarousel from "./components/NFTCarousel";
-import OwnedNFTCarousel from "./components/OwnedNFTCarousel";
-import { isMobile } from "react-device-detect"; // Import the device detection utility
 import "./main.css";
 
 type NFT = {
@@ -18,14 +15,6 @@ function App() {
   const [swapFromNFT, setSwapFromNFT] = useState<NFT | null>(null); // For "Swap From"
   const [swapToNFT, setSwapToNFT] = useState<NFT | null>(null); // For "Swap To"
   const [account, setAccount] = useState<string | null>(null);
-  const [isPooledView, setIsPooledView] = useState(true);
-  const [showMobilePopup, setShowMobilePopup] = useState(false);
-
-  useEffect(() => {
-    if (isMobile) {
-      setShowMobilePopup(true);
-    }
-  }, []);
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -90,47 +79,39 @@ function App() {
     }
   };
 
-  // Handle selection from Pool NFTs (for Swap To)
-  const handlePoolNFTSelect = (nft: NFT) => {
-    setSwapToNFT(nft);
-  };
-
-  // Handle selection from User-Owned NFTs (for Swap From)
-  const handleOwnedNFTSelect = (nft: NFT) => {
-    setSwapFromNFT(nft);
-  };
-
   return (
     <div className="app-container">
-      {showMobilePopup && (
-        <div className="popup-overlay">
-          <div className="popup-content">
-            <h2>Mobile Not Supported</h2>
-            <p>Our app is currently not supported on mobile devices. Please visit us on a desktop or laptop for the best experience.</p>
-            <button onClick={() => setShowMobilePopup(false)}>Close</button>
+      <DropDownPanel />
+      <Background />
+      <main className="main-container">
+        <div className="card-container">
+          {/* Left card with image */}
+          <div className="card">
+            <img src="./mocknft.png" alt="Mock NFT" className="card-image" />
+          </div>
+          {/* Right card with centered content */}
+          <div className="card">
+            <div className="card-content">
+              <h2 className="card-title">Round One NFT</h2>
+              <p className="card-detail">Price: 3500 APE</p>
+              <p className="card-detail">Supply: 8</p>
+            </div>
           </div>
         </div>
-      )}
-      {!showMobilePopup && (
-        <>
-          <DropDownPanel />
-          <Background />
-          <main className="main-container">
+      </main>
 
 
-          </main>
-          <Footer
-            onSwapToSelect={setSwapToNFT} // Swap To handler
-            onSwapFromSelect={setSwapFromNFT} // Swap From handler
-            swapToNFT={swapToNFT} // Selected Swap To NFT
-            swapFromNFT={swapFromNFT} // Selected Swap From NFT
-            connectWallet={connectWallet} // Connect wallet function
-            disconnectWallet={disconnectWallet} // Disconnect wallet function
-            account={account} // Current wallet account
-            handleSwap={handleSwap} // Swap handler
-          />
-        </>
-      )}
+
+      <Footer
+        onSwapToSelect={setSwapToNFT} // Swap To handler
+        onSwapFromSelect={setSwapFromNFT} // Swap From handler
+        swapToNFT={swapToNFT} // Selected Swap To NFT
+        swapFromNFT={swapFromNFT} // Selected Swap From NFT
+        connectWallet={connectWallet} // Connect wallet function
+        disconnectWallet={disconnectWallet} // Disconnect wallet function
+        account={account} // Current wallet account
+        handleSwap={handleSwap} // Swap handler
+      />
     </div>
   );
 }
