@@ -125,6 +125,23 @@ main {
   font-family: Arial, sans-serif; /* Clean font */
 }
 
+.mint-button {
+  margin-top: 20px; /* Add some spacing above the button */
+  padding: 10px 20px; /* Button padding */
+  font-size: 18px; /* Button text size */
+  font-weight: bold; /* Bold text */
+  color: white; /* Text color */
+  background-color: #6600CC; /* Button background color */
+  border: none; /* Remove border */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.mint-button:hover {
+  background-color: #5500aa; /* Darker shade on hover */
+}
+
 
 
 .toggle-buttons {

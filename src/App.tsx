@@ -93,8 +93,11 @@ function App() {
           <div className="card">
             <div className="card-content">
               <h2 className="card-title">Round One NFT</h2>
-              <p className="card-detail">Price: 3500 APE</p>
               <p className="card-detail">Supply: 8</p>
+              <p className="card-detail">Price: 3500 APE</p>
+              <button className="mint-button" onClick={() => alert("Minting initiated!")}>
+                Mint
+              </button>
             </div>
           </div>
         </div>
