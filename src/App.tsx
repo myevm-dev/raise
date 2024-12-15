@@ -58,7 +58,7 @@ function App() {
             </button>
           </div>
           <p className="non-transferable-text">
-            NFTs are non-transferable while mint is active
+            NFTs are non-transferable during minting, a wallet can never hold two.
           </p>
         </div>
       </main>
